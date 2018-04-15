@@ -10,7 +10,6 @@ router = routers.DefaultRouter()
 router.register(r'users', viewset.UserViewSet)
 
 urlpatterns = [
-    path('home', views.index, name='index'),
     path('', include(router.urls)),
     path('api-token-auth/', views.token)
 
