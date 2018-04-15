@@ -38,7 +38,7 @@ class ProvinceViewSet(
                      'population_under_poverty_line', 'per_capita_income', 'hh_by_lowest_wealth_quantiles',
                      'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp']
 
-    queryset = ProvinceData.objects.all()
+    queryset = ProvinceData.objects.select_related()
 
     def get_queryset(self):
         province_query = self.request.GET.get('province')

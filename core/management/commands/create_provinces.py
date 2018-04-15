@@ -3,7 +3,7 @@ from core.models import Province
 
 
 class Command(BaseCommand):
-    help = 'Create default groups'
+    help = 'Create default provinces'
 
     def handle(self, *args, **options):
         provinces_list = [1, 2, 3, 4, 5, 6, 7]

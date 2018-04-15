@@ -52,4 +52,4 @@ def province_data_create(request):
         ProvinceData.objects.bulk_create(provinces)
     except Province.DoesNotExist:
         pass
-    return HttpResponse('success')
+    return HttpResponse('successfully loaded provinces data')
