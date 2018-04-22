@@ -11,6 +11,7 @@ class Province(models.Model):
 
 class District(models.Model):
     name = models.CharField(max_length=200)
+    province = models.ForeignKey(Province, related_name="districts", on_delete=models.SET_NULL, null=True, blank=True)
 
 
 class Sector(models.Model):
