@@ -9,8 +9,9 @@ from rest_framework.mixins import (
 )
 from rest_framework.filters import SearchFilter
 
-from .models import ProvinceData
-from .serializers import ProvinceDataSerializer
+from .models import ProvinceData, Province, District, Program, Partner
+from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
+    PartnerSerializer
 
 
 # Serializers define the API representation.
@@ -27,7 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 # ViewSets for listing the Province data.
-class ProvinceViewSet(
+class ProvinceDataViewSet(
                         CreateModelMixin,
                         ListModelMixin,
                         GenericViewSet):
@@ -53,10 +54,30 @@ class ProvinceViewSet(
 
 
 # ViewSets for updating the particular Province.
-class ProvinceUpdateViewSet(
+class ProvinceDataUpdateViewSet(
                                 UpdateModelMixin,
                                 RetrieveModelMixin,
                                 GenericViewSet
                             ):
     serializer_class = ProvinceDataSerializer
     queryset = ProvinceData.objects.all()
+
+
+class ProvinceViewset(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ProvinceSerializer
+    queryset = Province.objects.all()
+
+
+class DistrictViewset(viewsets.ReadOnlyModelViewSet):
+    serializer_class = DistrictSerializer
+    queryset = District.objects.all()
+
+
+class PartnetViewset(viewsets.ReadOnlyModelViewSet):
+    serializer_class = PartnerSerializer
+    queryset = Partner.objects.all()
+
+
+class ProgramViewset(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ProgramSerializer
+    queryset = Program.objects.all()
