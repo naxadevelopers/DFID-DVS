@@ -1,12 +1,6 @@
 from django.contrib.auth.models import User
+
 from rest_framework import routers, serializers, viewsets
-from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import (
-    CreateModelMixin,
-    ListModelMixin,
-    UpdateModelMixin,
-    RetrieveModelMixin,
-)
 from rest_framework.filters import SearchFilter
 
 from .models import ProvinceData, Province, District, Program, Partner
@@ -28,11 +22,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 # ViewSets for listing the Province data.
-class ProvinceDataViewSet(
-                        CreateModelMixin,
-                        ListModelMixin,
-                        GenericViewSet):
-
+class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ProvinceDataSerializer
     filter_backends = [SearchFilter]
     search_fields = ['province__name', 'total_population', 'area', 'population_desnity', 'poverty_rate',
@@ -45,7 +35,7 @@ class ProvinceDataViewSet(
         province_query = self.request.GET.get('province')
 
         if province_query:
-            queryset = self.queryset.filter(province=province_query)
+            queryset = self.queryset.filter(province__name='Province '+str(province_query))
 
             return queryset
         else:
@@ -54,11 +44,7 @@ class ProvinceDataViewSet(
 
 
 # ViewSets for updating the particular Province.
-class ProvinceDataUpdateViewSet(
-                                UpdateModelMixin,
-                                RetrieveModelMixin,
-                                GenericViewSet
-                            ):
+class ProvinceDataUpdateViewSet(viewsets.ModelViewSet):
     serializer_class = ProvinceDataSerializer
     queryset = ProvinceData.objects.all()
 
