@@ -45,7 +45,7 @@ class ProvinceDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProvinceData
-        fields = ('id', 'province', 'total_population', 'area', 'population_desnity', 'poverty_rate',
+        fields = ('id', 'province', 'total_population', 'area', 'population_density', 'poverty_rate',
                   'population_under_poverty_line', 'per_capita_income', 'hh_by_lowest_wealth_quantiles',
                   'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp')
 

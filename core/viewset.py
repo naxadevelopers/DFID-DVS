@@ -43,12 +43,6 @@ class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
             return queryset
 
 
-# ViewSets for updating the particular Province.
-class ProvinceDataUpdateViewSet(viewsets.ModelViewSet):
-    serializer_class = ProvinceDataSerializer
-    queryset = ProvinceData.objects.all()
-
-
 class ProvinceViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ProvinceSerializer
     queryset = Province.objects.all()
@@ -62,6 +56,17 @@ class DistrictViewset(viewsets.ReadOnlyModelViewSet):
 class DistrictSpendingViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = DistrictSpendingSerializer
     queryset = DistrictSpending.objects.all()
+
+    def get_queryset(self):
+        province_query = self.request.GET.get('province')
+
+        if province_query:
+            queryset = self.queryset.filter(district__province__name='Province '+str(province_query))
+
+            return queryset
+        else:
+            queryset = self.queryset
+            return queryset
 
 
 class PartnetViewset(viewsets.ReadOnlyModelViewSet):

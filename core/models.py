@@ -36,7 +36,7 @@ class ProvinceData(models.Model):
     province = models.ForeignKey(Province, related_name="province_data", on_delete=models.CASCADE)
     total_population = models.IntegerField()
     area = models.FloatField()
-    population_desnity = models.IntegerField()
+    population_density = models.IntegerField()
     poverty_rate = models.FloatField()
     population_under_poverty_line = models.IntegerField()
     per_capita_income = models.IntegerField()

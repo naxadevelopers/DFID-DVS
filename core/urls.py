@@ -8,10 +8,10 @@ from . import viewset
 
 router = routers.DefaultRouter()
 router.register(r'users', viewset.UserViewSet)
-router.register(r'provincedata', viewset.ProvinceDataViewSet, base_name='provinces-list')
-router.register(r'provincedistrict', viewset.DistrictViewset, base_name='provinces-district-list')
-router.register(r'districtspending', viewset.DistrictSpendingViewset, base_name='district-spending')
-router.register(r'provincesdata-edit', viewset.ProvinceDataUpdateViewSet, base_name='provinces-edit')
+router.register(r'provinces', viewset.ProvinceViewset, base_name='provinces-list')
+router.register(r'province-data', viewset.ProvinceDataViewSet, base_name='provinces-data')
+router.register(r'districts', viewset.DistrictViewset, base_name='provinces-district-list')
+router.register(r'districts-spending', viewset.DistrictSpendingViewset, base_name='district-spending')
 
 urlpatterns = [
     path('', include(router.urls)),
