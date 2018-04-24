@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from rest_framework.serializers import CharField
+from rest_framework.serializers import CharField, IntegerField
 
-from .models import ProvinceData, Province, District, Sector, Partner, Program
+from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -50,3 +50,12 @@ class ProvinceDataSerializer(serializers.ModelSerializer):
                   'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp')
 
 
+class DistrictSpendingSerializer(serializers.ModelSerializer):
+    district = CharField(source='district.name')
+    district_id = IntegerField(source='district.id')
+    program = CharField(source='program.name')
+    program_id = IntegerField(source='program.id')
+
+    class Meta:
+        model = DistrictSpending
+        fields = ('id', 'district', 'district_id', 'program', 'program_id', 'annual_spend')

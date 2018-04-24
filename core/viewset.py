@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from rest_framework.filters import SearchFilter
 
-from .models import ProvinceData, Province, District, Program, Partner
+from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
-    PartnerSerializer
+    PartnerSerializer, DistrictSpendingSerializer
 
 
 # Serializers define the API representation.
@@ -57,6 +57,11 @@ class ProvinceViewset(viewsets.ReadOnlyModelViewSet):
 class DistrictViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = DistrictSerializer
     queryset = District.objects.all()
+
+
+class DistrictSpendingViewset(viewsets.ReadOnlyModelViewSet):
+    serializer_class = DistrictSpendingSerializer
+    queryset = DistrictSpending.objects.all()
 
 
 class PartnetViewset(viewsets.ReadOnlyModelViewSet):
