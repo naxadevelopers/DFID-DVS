@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse
 
-import  json
+import json
 
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -32,6 +32,17 @@ def country_geojson(request):
     data = {}
     try:
         with open('jsons/province.geojson') as f:
+            data = json.load(f)
+    except:
+        pass
+    return Response(data)
+
+
+@api_view(['GET'])
+def province_geojson(request, province_id):
+    data = {}
+    try:
+        with open('jsons/{}.geojson'.format(province_id)) as f:
             data = json.load(f)
     except:
         pass
