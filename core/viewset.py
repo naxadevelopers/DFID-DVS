@@ -59,7 +59,6 @@ class DistrictSpendingViewset(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         province_query = self.request.query_params.get('province')
-        print(province_query)
 
         if province_query:
             queryset = self.queryset.filter(district__province__name='Province '+str(province_query))
