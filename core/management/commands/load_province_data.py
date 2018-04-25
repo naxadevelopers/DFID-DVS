@@ -22,7 +22,7 @@ class Command(BaseCommand):
                         province=Province.objects.get(name='Province '+str(row)),
                         total_population=df.ix[row]['Indicator 1'],
                         area=float(df.ix[row]['Unnamed: 1']),
-                        population_desnity=int(df.ix[row]['Indicator 2']),
+                        population_density=int(df.ix[row]['Indicator 2']),
                         poverty_rate=df.ix[row]['Indicator 3'],
                         population_under_poverty_line=int(df.ix[row]['Indicator 4']),
                         per_capita_income=df.ix[row]['Indicator 5'],
