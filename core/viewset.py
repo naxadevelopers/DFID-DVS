@@ -23,6 +23,14 @@ class UserViewSet(viewsets.ModelViewSet):
 
 # ViewSets for listing the Province data.
 class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+         list: list of province data.
+
+         detail: To find detail of one province, append /province_id/
+
+
+    """
     serializer_class = ProvinceDataSerializer
     filter_backends = [SearchFilter]
     search_fields = ['province__name', 'total_population', 'area', 'population_desnity', 'poverty_rate',
@@ -44,16 +52,31 @@ class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ProvinceViewset(viewsets.ReadOnlyModelViewSet):
+    """
+      list:
+      Return the list of all provinces.
+
+    """
     serializer_class = ProvinceSerializer
     queryset = Province.objects.all()
 
 
 class DistrictViewset(viewsets.ReadOnlyModelViewSet):
+    """
+        list:
+        Return the list of all districts.
+    """
     serializer_class = DistrictSerializer
     queryset = District.objects.all()
 
 
 class DistrictSpendingViewset(viewsets.ReadOnlyModelViewSet):
+    """
+
+     list: list of district spending data.
+
+    """
+
     serializer_class = DistrictSpendingSerializer
     queryset = DistrictSpending.objects.all()
 
