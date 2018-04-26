@@ -1,7 +1,10 @@
+import json
+
 from django.contrib.auth.models import User
 
-from rest_framework import routers, serializers, viewsets
+from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
+from rest_framework.response import Response
 
 from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
@@ -100,3 +103,28 @@ class PartnetViewset(viewsets.ReadOnlyModelViewSet):
 class ProgramViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ProgramSerializer
     queryset = Program.objects.all()
+
+
+class CountryGeojsonViewSet(viewsets.ViewSet):
+
+    def list(self, request, format=None):
+        data = {}
+        try:
+            with open('jsons/province.geojson') as f:
+                data = json.load(f)
+        except:
+            pass
+
+        return Response(data)
+
+
+class ProvinceGeojsonViewSet(viewsets.ViewSet):
+
+    def list(self, request, province_id, format=None):
+        data = {}
+        try:
+            with open('jsons/{}.geojson'.format(province_id)) as f:
+                data = json.load(f)
+        except:
+            pass
+        return Response(data)
