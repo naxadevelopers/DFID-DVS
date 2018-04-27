@@ -1,10 +1,7 @@
-import json
-
 from django.contrib.auth.models import User
 
 from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
-from rest_framework.response import Response
 
 from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
@@ -36,7 +33,7 @@ class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
     """
     serializer_class = ProvinceDataSerializer
     filter_backends = [SearchFilter]
-    search_fields = ['province__name', 'total_population', 'area', 'population_desnity', 'poverty_rate',
+    search_fields = ['province__name', 'total_population', 'area', 'population_density', 'poverty_rate',
                      'population_under_poverty_line', 'per_capita_income', 'hh_by_lowest_wealth_quantiles',
                      'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp']
 
@@ -66,8 +63,7 @@ class ProvinceViewset(viewsets.ReadOnlyModelViewSet):
 
 class DistrictViewset(viewsets.ReadOnlyModelViewSet):
     """
-        list:
-        Return the list of all districts.
+        list:Return the list of all districts.
     """
     serializer_class = DistrictSerializer
     queryset = District.objects.all()
@@ -103,28 +99,3 @@ class PartnetViewset(viewsets.ReadOnlyModelViewSet):
 class ProgramViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ProgramSerializer
     queryset = Program.objects.all()
-
-
-class CountryGeojsonViewSet(viewsets.ViewSet):
-
-    def list(self, request, format=None):
-        data = {}
-        try:
-            with open('jsons/province.geojson') as f:
-                data = json.load(f)
-        except:
-            pass
-
-        return Response(data)
-
-
-class ProvinceGeojsonViewSet(viewsets.ViewSet):
-
-    def list(self, request, province_id, format=None):
-        data = {}
-        try:
-            with open('jsons/{}.geojson'.format(province_id)) as f:
-                data = json.load(f)
-        except:
-            pass
-        return Response(data)

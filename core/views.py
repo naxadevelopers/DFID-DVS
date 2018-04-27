@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 
@@ -22,3 +24,32 @@ def token(request):
         'user_id': user.pk,
         'email': user.email
     })
+
+
+@api_view(['GET'])
+def province_geojson(request, province_id):
+    """
+    detail of particular province geojson
+    """
+    data = {}
+    try:
+        with open('jsons/{}.geojson'.format(province_id)) as f:
+            data = json.load(f)
+    except:
+        pass
+    return Response(data)
+
+
+@api_view(['GET'])
+def country_geojson(self, request, format=None):
+    """
+    list of country geojson
+    """
+    data = {}
+    try:
+        with open('jsons/province.geojson') as f:
+            data = json.load(f)
+    except:
+        pass
+
+    return Response(data)
