@@ -42,10 +42,11 @@ class ProgramSerializer(serializers.ModelSerializer):
 
 class ProvinceDataSerializer(serializers.ModelSerializer):
     province = CharField(source='province.name', read_only=True)
+    district = IntegerField(source='province.districts.count', read_only=True)
 
     class Meta:
         model = ProvinceData
-        fields = ('id', 'province', 'total_population', 'area', 'population_density', 'poverty_rate',
+        fields = ('id', 'province',  'district', 'total_population', 'area', 'population_density', 'poverty_rate',
                   'population_under_poverty_line', 'per_capita_income', 'hh_by_lowest_wealth_quantiles',
                   'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp')
 
