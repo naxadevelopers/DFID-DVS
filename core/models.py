@@ -10,6 +10,10 @@ class Province(models.Model):
     def annual_spend(self):
         return self.districts.aggregate(total=Sum('district_spending__annual_spend'))
 
+    @property
+    def programs(self):
+        return self.districts.values('district_spending__program').distinct().count()
+
     def __str__(self):
         return self.name
 
@@ -56,9 +60,3 @@ class DistrictSpending(models.Model):
     district = models.ForeignKey(District, related_name="district_spending", on_delete=models.SET_NULL, null=True)
     program = models.ForeignKey(Program, related_name="district_spending_program", on_delete=models.SET_NULL, null=True)
     annual_spend = models.FloatField()
-
-
-class DistrictMappingTemplateData(models.Model):
-    district = models.ForeignKey(District, related_name="district_mapping", on_delete=models.SET_NULL, null=True)
-    program = models.ForeignKey(Program, related_name="district_mapping_program", on_delete=models.SET_NULL, null=True)
-    count = models.IntegerField()
