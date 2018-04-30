@@ -17,7 +17,7 @@ router.register(r'districts-spending', viewset.DistrictSpendingViewset, base_nam
 urlpatterns = [
     path('', include(router.urls)),
     path('api-token-auth/', views.token),
-    path('geojson/country', views.country_geojson),
+    path('geojson/country/', views.country_geojson),
     path('geojson/province/<province_id>/', views.province_geojson),
 
 ]
