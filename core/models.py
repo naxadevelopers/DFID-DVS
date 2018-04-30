@@ -1,9 +1,14 @@
 from django.db import models
+from django.db.models import Sum
 
 
 class Province(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
+
+    @property
+    def annual_spend(self):
+        return self.districts.aggregate(total=Sum('district_spending__annual_spend'))
 
     def __str__(self):
         return self.name
