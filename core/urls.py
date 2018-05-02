@@ -12,6 +12,7 @@ router.register(r'provinces', viewset.ProvinceViewset, base_name='provinces-list
 router.register(r'province-data', viewset.ProvinceDataViewSet, base_name='provinces-data')
 router.register(r'districts', viewset.DistrictViewset, base_name='provinces-district-list')
 router.register(r'districts-spending', viewset.DistrictSpendingViewset, base_name='district-spending')
+router.register(r'programmes', viewset.ProgramViewset, base_name='programmes-list')
 
 
 urlpatterns = [

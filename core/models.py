@@ -41,6 +41,12 @@ class Program(models.Model):
     description = models.TextField(null=True, blank=True)
 
 
+class ProgramBudget(models.Model):
+    program = models.ForeignKey(Program, related_name="program_budget", on_delete=models.CASCADE)
+    code = models.IntegerField()
+    budget = models.FloatField()
+
+
 class ProvinceData(models.Model):
     province = models.ForeignKey(Province, related_name="province_data", on_delete=models.CASCADE)
     total_population = models.IntegerField()
