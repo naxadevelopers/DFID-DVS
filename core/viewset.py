@@ -51,7 +51,7 @@ class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
             return queryset
 
 
-class ProvinceViewset(viewsets.ReadOnlyModelViewSet):
+class ProvinceViewSet(viewsets.ReadOnlyModelViewSet):
     """
       list:
       Return the list of all provinces.
@@ -61,7 +61,7 @@ class ProvinceViewset(viewsets.ReadOnlyModelViewSet):
     queryset = Province.objects.all()
 
 
-class DistrictViewset(viewsets.ReadOnlyModelViewSet):
+class DistrictViewSet(viewsets.ReadOnlyModelViewSet):
     """
         list:Return the list of all districts.
     """
@@ -69,7 +69,7 @@ class DistrictViewset(viewsets.ReadOnlyModelViewSet):
     queryset = District.objects.all()
 
 
-class DistrictSpendingViewset(viewsets.ReadOnlyModelViewSet):
+class DistrictSpendingViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
      list: list of district spending data.
@@ -91,11 +91,17 @@ class DistrictSpendingViewset(viewsets.ReadOnlyModelViewSet):
             return queryset
 
 
-class PartnetViewset(viewsets.ReadOnlyModelViewSet):
+class PartnerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PartnerSerializer
     queryset = Partner.objects.all()
 
 
-class ProgramViewset(viewsets.ReadOnlyModelViewSet):
+class ProgramViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+        list: list of programmes.
+
+    """
+
     serializer_class = ProgramSerializer
     queryset = Program.objects.all()

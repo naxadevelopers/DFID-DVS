@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from rest_framework.serializers import CharField, IntegerField, FloatField
+from rest_framework.serializers import CharField, IntegerField
 
-from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, ProgramBudget
+from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
