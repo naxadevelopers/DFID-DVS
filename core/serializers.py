@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from rest_framework.serializers import CharField, IntegerField
 
-from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending
+from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
+    FederalismDraft, ProvinceInfo, ProgramData
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -61,3 +62,35 @@ class DistrictSpendingSerializer(serializers.ModelSerializer):
     class Meta:
         model = DistrictSpending
         fields = ('id', 'district', 'district_id', 'program', 'program_id', 'annual_spend')
+
+
+class IndicatorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Indicator
+        exclude = ()
+
+
+class FederalismDraftSerializer(serializers.ModelSerializer):
+    province = CharField(source='province.name', read_only=True)
+    province_id = IntegerField(source='province.id')
+    indicator = CharField(source='indicator.name', read_only=True)
+    indicator_id = IntegerField(source='indicator.id')
+
+    class Meta:
+        model = FederalismDraft
+        fields = ('id', 'dfid_qn', 'province', 'province_id', 'indicator', 'indicator_id', 'values', 'unit')
+
+
+class ProvinceInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProvinceInfo
+        exclude = ()
+
+
+class ProgramDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProgramData
+        exclude = ()

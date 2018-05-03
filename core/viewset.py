@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
 
-from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending
+from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, FederalismDraft, \
+    Sector, ProvinceInfo, ProgramData
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
-    PartnerSerializer, DistrictSpendingSerializer
+    PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, FederalismDraftSerializer, SectorSerializer, \
+    ProvinceInfoSerializer, ProgramDataSerializer
 
 
 # Serializers define the API representation.
@@ -105,3 +107,58 @@ class ProgramViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ProgramSerializer
     queryset = Program.objects.all()
+
+
+class IndicatorViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of Indicators.
+
+    """
+
+    serializer_class = IndicatorSerializer
+    queryset = Indicator.objects.all()
+
+
+class FederalismDraftViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of Federalism Draft.
+
+    """
+
+    serializer_class = FederalismDraftSerializer
+    queryset = FederalismDraft.objects.all()
+
+
+class SectorViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of Sectors.
+
+    """
+
+    serializer_class = SectorSerializer
+    queryset = Sector.objects.all()
+
+
+class ProvinceInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of Province Info.
+
+    """
+
+    serializer_class = ProvinceInfoSerializer
+    queryset = ProvinceInfo.objects.all()
+
+
+class ProgramDataViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: Flat Data for Programmes.
+
+    """
+
+    serializer_class = ProgramDataSerializer
+    queryset = ProgramData.objects.all()

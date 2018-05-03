@@ -66,3 +66,32 @@ class DistrictSpending(models.Model):
     district = models.ForeignKey(District, related_name="district_spending", on_delete=models.SET_NULL, null=True)
     program = models.ForeignKey(Program, related_name="district_spending_program", on_delete=models.SET_NULL, null=True)
     annual_spend = models.FloatField()
+
+
+class Indicator(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class FederalismDraft(models.Model):
+    dfid_qn = models.IntegerField()
+    province = models.ForeignKey(Province, related_name="federalism_draft_province", on_delete=models.CASCADE)
+    indicator = models.ForeignKey(Indicator, related_name="federalism_draft_province_indicator",
+                                  on_delete=models.SET_NULL, null=True)
+    values = models.FloatField()
+    unit = models.CharField(max_length=200)
+
+
+class ProvinceInfo(models.Model):
+    name = models.ForeignKey(Province, related_name="province_info", on_delete=models.CASCADE)
+    no_of_active_programmes = models.ForeignKey(Program, on_delete=models.SET_NULL, null=True)
+    total_budget = models.FloatField()
+
+
+class ProgramData(models.Model):
+    name = models.ForeignKey(Program, related_name="program_data", on_delete=models.CASCADE)
+    program_budget = models.FloatField()
+    sectors = models.ManyToManyField(Sector)
+    description = models.TextField(null=True, blank=True)

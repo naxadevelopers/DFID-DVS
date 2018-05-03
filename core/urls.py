@@ -13,6 +13,11 @@ router.register(r'province-data', viewset.ProvinceDataViewSet, base_name='provin
 router.register(r'districts', viewset.DistrictViewSet, base_name='provinces-district-list')
 router.register(r'districts-spending', viewset.DistrictSpendingViewSet, base_name='district-spending')
 router.register(r'programmes', viewset.ProgramViewSet, base_name='programmes-list')
+router.register(r'indicators', viewset.IndicatorViewSet, base_name='indicators-list')
+router.register(r'federalism-draft', viewset.FederalismDraftViewSet, base_name='federalism-draft-list')
+router.register(r'sectors', viewset.SectorViewSet, base_name='sectors-list')
+router.register(r'province-info', viewset.ProvinceInfoViewSet, base_name='province-info-list')
+router.register(r'programme-data', viewset.ProgramDataViewSet, base_name='program-data-list')
 
 
 urlpatterns = [
