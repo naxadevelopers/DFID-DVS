@@ -25,10 +25,8 @@ class UserViewSet(viewsets.ModelViewSet):
 class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
-         list: list of province data.
-
-         detail: To find detail of one province, append /province_id/
-
+    list: list of province data.
+    detail: To find detail of one province, append /province_id/
 
     """
     serializer_class = ProvinceDataSerializer
@@ -53,8 +51,8 @@ class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
 
 class ProvinceViewSet(viewsets.ReadOnlyModelViewSet):
     """
-      list:
-      Return the list of all provinces.
+
+    list:Return the list of all provinces.
 
     """
     serializer_class = ProvinceSerializer
@@ -63,7 +61,9 @@ class ProvinceViewSet(viewsets.ReadOnlyModelViewSet):
 
 class DistrictViewSet(viewsets.ReadOnlyModelViewSet):
     """
-        list:Return the list of all districts.
+
+    list:Return the list of all districts.
+
     """
     serializer_class = DistrictSerializer
     queryset = District.objects.all()
@@ -72,7 +72,7 @@ class DistrictViewSet(viewsets.ReadOnlyModelViewSet):
 class DistrictSpendingViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
-     list: list of district spending data.
+    list: list of district spending data.
 
     """
 
@@ -99,7 +99,7 @@ class PartnerViewSet(viewsets.ReadOnlyModelViewSet):
 class ProgramViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
-        list: list of programmes.
+    list: list of programmes.
 
     """
 
