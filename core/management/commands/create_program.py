@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from core.models import Program
+from core.models import Program, ProgramData, Province
 
 
 class Command(BaseCommand):
@@ -36,3 +36,24 @@ class Command(BaseCommand):
             new_program, created = Program.objects.get_or_create(name=program)
             if created:
                 self.stdout.write('Successfully created programmes .. "%s"' % program)
+
+        # test data
+
+        program_province_list = [
+            {"Nepal Climate Change Support Programme": ["Province 4", "Province 3", "Province 5"]},
+            {"Nepal Local Governance Support Programme": ["Province 4", "Province 1"]},
+            {"Rural Access Programme 3": ["Province 1", "Province 2", "Province 3", "Province 5"]},
+            {"Climate Smart Development for Nepal": ["Province 5", "Province 2"]},
+
+        ]
+
+        for program_province in program_province_list:
+            for program, province_list in program_province.items():
+                program_data_obj = ProgramData.objects.create(program=Program.objects.get(name=program))
+
+                for province in province_list:
+                    province_obj = Province.objects.get(name=province)
+                    program_data_obj.province.add(province_obj)
+                program_data_obj.save()
+                if program_data_obj:
+                    self.stdout.write('Successfully created province"s programmes "%s","%s"' % (program, province_list))

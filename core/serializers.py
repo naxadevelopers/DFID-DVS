@@ -34,22 +34,23 @@ class PartnerSerializer(serializers.ModelSerializer):
 
 
 class ProgramSerializer(serializers.ModelSerializer):
-    # province = CharField(source='province')
 
     class Meta:
         model = Program
-        fields = ('id', 'name', 'description', 'province')
+        fields = ('id', 'name', 'description')
 
 
 class ProvinceDataSerializer(serializers.ModelSerializer):
     province = CharField(source='province.name', read_only=True)
     district = IntegerField(source='province.districts.count', read_only=True)
+    total_budget = FloatField(source='total_budget.total')
 
     class Meta:
         model = ProvinceData
         fields = ('id', 'province',  'district', 'total_population', 'area', 'population_density', 'poverty_rate',
                   'population_under_poverty_line', 'per_capita_income', 'hh_by_lowest_wealth_quantiles',
-                  'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp'
+                  'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp', 'active_programmes',
+                  'total_budget', 'description'
                   )
 
 
@@ -84,10 +85,11 @@ class FederalismDraftSerializer(serializers.ModelSerializer):
 
 class ProvinceInfoSerializer(serializers.ModelSerializer):
     name = CharField(source='name.name')
+    total_budget = FloatField(source='total_budget.total')
 
     class Meta:
         model = ProvinceInfo
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'total_budget', 'active_programmes')
 
 
 class ProgramDataSerializer(serializers.ModelSerializer):
@@ -95,7 +97,7 @@ class ProgramDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProgramData
-        fields = ('id', 'program', 'program_budget', 'sectors', 'description')
+        fields = ('id', 'program', 'description', 'sectors', 'program_budget')
 
 
 class CountryDataSerializer(serializers.ModelSerializer):

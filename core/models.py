@@ -31,16 +31,6 @@ class Sector(models.Model):
     description = models.TextField(null=True, blank=True)
 
 
-class Municipality(models.Model):
-    name = models.CharField(max_length=200)
-    district = models.ForeignKey(District, related_name="municipality_district", on_delete=models.CASCADE)
-
-
-class Paalikas(models.Model):
-    name = models.CharField(max_length=200)
-    district = models.ForeignKey(District, related_name="paalikas_district", on_delete=models.CASCADE)
-
-
 class Partner(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
@@ -48,7 +38,6 @@ class Partner(models.Model):
 
 class Program(models.Model):
     name = models.CharField(max_length=200)
-    province = models.ForeignKey(Province, related_name="program_province", on_delete=models.SET_NULL, null=True)
     description = models.TextField(null=True, blank=True)
 
 
@@ -71,6 +60,15 @@ class ProvinceData(models.Model):
     minute_access_to = models.FloatField()
     vulnerability_index = models.FloatField()
     gdp = models.IntegerField()
+
+    def active_programmes(self):
+        return self.province.program_data_province.values('id', 'program__name')
+
+    def total_budget(self):
+        return self.province.program_data_province.aggregate(total=Sum('program__program_budget__budget'))
+
+    def description(self):
+        return self.province.description
 
 
 class DistrictSpending(models.Model):
@@ -98,12 +96,22 @@ class FederalismDraft(models.Model):
 class ProvinceInfo(models.Model):
     name = models.ForeignKey(Province, related_name="province_info", on_delete=models.CASCADE)
 
+    def total_budget(self):
+        return self.name.program_data_province.aggregate(total=Sum('program__program_budget__budget'))
+
+    def active_programmes(self):
+        return self.name.program_data_province.values('program').count()
+
 
 class ProgramData(models.Model):
+    province = models.ManyToManyField(Province, related_name="program_data_province")
     program = models.ForeignKey(Program, related_name="program_data_program", on_delete=models.CASCADE)
 
     def program_budget(self):
-        return self.program.program_budget.values_list('budget', flat=True)[0]
+        try:
+            return self.program.program_budget.values_list('budget', flat=True)[0]
+        except IndexError:
+            pass
 
     def description(self):
         return self.program.description

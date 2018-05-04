@@ -9,7 +9,7 @@ from core.models import Program, ProgramBudget
 
 
 class Command(BaseCommand):
-    help = 'load program budget'
+    help = 'load program budget from nepal_data_mapping file'
 
     def add_arguments(self, parser):
         parser.add_argument("-f", type=argparse.FileType(), required=True)
