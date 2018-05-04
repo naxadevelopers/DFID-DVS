@@ -4,10 +4,10 @@ from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
 
 from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, FederalismDraft, \
-    Sector, ProvinceInfo, ProgramData
+    Sector, ProvinceInfo, ProgramData, CountryData
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
     PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, FederalismDraftSerializer, SectorSerializer, \
-    ProvinceInfoSerializer, ProgramDataSerializer
+    ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer
 
 
 # Serializers define the API representation.
@@ -162,3 +162,14 @@ class ProgramDataViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ProgramDataSerializer
     queryset = ProgramData.objects.all()
+
+
+class CountryDataViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: Flat Data for Country.
+
+    """
+
+    serializer_class = CountryDataSerializer
+    queryset = CountryData.objects.all()

@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from rest_framework.serializers import CharField, IntegerField
+from rest_framework.serializers import CharField, IntegerField, FloatField
 
 from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
-    FederalismDraft, ProvinceInfo, ProgramData
+    FederalismDraft, ProvinceInfo, ProgramData, CountryData
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -13,11 +13,10 @@ class ProvinceSerializer(serializers.ModelSerializer):
 
 
 class DistrictSerializer(serializers.ModelSerializer):
-    province = CharField(source='province.name', read_only=True)
 
     class Meta:
         model = District
-        fields = ('id', 'name', 'province')
+        fields = ('id', 'name')
 
 
 class SectorSerializer(serializers.ModelSerializer):
@@ -35,10 +34,11 @@ class PartnerSerializer(serializers.ModelSerializer):
 
 
 class ProgramSerializer(serializers.ModelSerializer):
+    # province = CharField(source='province')
 
     class Meta:
         model = Program
-        exclude = ()
+        fields = ('id', 'name', 'description', 'province')
 
 
 class ProvinceDataSerializer(serializers.ModelSerializer):
@@ -83,14 +83,25 @@ class FederalismDraftSerializer(serializers.ModelSerializer):
 
 
 class ProvinceInfoSerializer(serializers.ModelSerializer):
+    name = CharField(source='name.name')
 
     class Meta:
         model = ProvinceInfo
-        exclude = ()
+        fields = ('id', 'name')
 
 
 class ProgramDataSerializer(serializers.ModelSerializer):
+    program = CharField(source='program.name')
 
     class Meta:
         model = ProgramData
-        exclude = ()
+        fields = ('id', 'program', 'program_budget', 'sectors', 'description')
+
+
+class CountryDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CountryData
+        fields = ('id', 'provinces', 'paalikas', 'municipalities', 'total_population', 'area', 'population_density',
+                  'poverty_rate', 'literacy_rate', 'population_under_poverty_line', 'per_capita_income',
+                  'human_development_index', 'gdp')

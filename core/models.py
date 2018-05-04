@@ -31,6 +31,16 @@ class Sector(models.Model):
     description = models.TextField(null=True, blank=True)
 
 
+class Municipality(models.Model):
+    name = models.CharField(max_length=200)
+    district = models.ForeignKey(District, related_name="municipality_district", on_delete=models.CASCADE)
+
+
+class Paalikas(models.Model):
+    name = models.CharField(max_length=200)
+    district = models.ForeignKey(District, related_name="paalikas_district", on_delete=models.CASCADE)
+
+
 class Partner(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
@@ -38,13 +48,14 @@ class Partner(models.Model):
 
 class Program(models.Model):
     name = models.CharField(max_length=200)
+    province = models.ForeignKey(Province, related_name="program_province", on_delete=models.SET_NULL, null=True)
     description = models.TextField(null=True, blank=True)
 
 
 class ProgramBudget(models.Model):
     program = models.ForeignKey(Program, related_name="program_budget", on_delete=models.CASCADE)
     code = models.IntegerField()
-    budget = models.FloatField()
+    budget = models.FloatField(default=0)
 
 
 class ProvinceData(models.Model):
@@ -86,12 +97,36 @@ class FederalismDraft(models.Model):
 
 class ProvinceInfo(models.Model):
     name = models.ForeignKey(Province, related_name="province_info", on_delete=models.CASCADE)
-    no_of_active_programmes = models.ForeignKey(Program, on_delete=models.SET_NULL, null=True)
-    total_budget = models.FloatField()
 
 
 class ProgramData(models.Model):
-    name = models.ForeignKey(Program, related_name="program_data", on_delete=models.CASCADE)
-    program_budget = models.FloatField()
-    sectors = models.ManyToManyField(Sector)
-    description = models.TextField(null=True, blank=True)
+    program = models.ForeignKey(Program, related_name="program_data_program", on_delete=models.CASCADE)
+
+    def program_budget(self):
+        return self.program.program_budget.values_list('budget', flat=True)[0]
+
+    def description(self):
+        return self.program.description
+
+    def sectors(self):
+        return self.program.sector_data_program.extra(select={'id': 'sector_id'}).values('id', 'sector__name')
+
+
+class CountryData(models.Model):
+    provinces = models.IntegerField(default=7)
+    paalikas = models.IntegerField(default=460)
+    municipalities = models.IntegerField(default=276)
+    total_population = models.IntegerField(default=29624035)
+    area = models.CharField(max_length=200, default="147,181 sq.km")
+    population_density = models.IntegerField(null=True)
+    poverty_rate = models.FloatField(null=True)
+    literacy_rate = models.FloatField(null=True)
+    population_under_poverty_line = models.IntegerField(null=True)
+    per_capita_income = models.IntegerField(null=True)
+    human_development_index = models.FloatField(null=True)
+    gdp = models.IntegerField(null=True)
+
+
+class SectorData(models.Model):
+    sector = models.ForeignKey(Sector, related_name="sector_data_sector", on_delete=models.CASCADE)
+    program = models.ForeignKey(Program, related_name="sector_data_program", on_delete=models.SET_NULL, null=True)
