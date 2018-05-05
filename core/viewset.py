@@ -79,7 +79,7 @@ class DistrictSpendingViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = DistrictSpendingSerializer
-    queryset = DistrictSpending.objects.all()
+    queryset = DistrictSpending.objects.select_related('district', 'program')
 
     def get_queryset(self):
         province_query = self.request.query_params.get('province')
@@ -128,7 +128,7 @@ class FederalismDraftViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = FederalismDraftSerializer
-    queryset = FederalismDraft.objects.all()
+    queryset = FederalismDraft.objects.select_related('province', 'indicator')
 
 
 class SectorViewSet(viewsets.ReadOnlyModelViewSet):
@@ -150,7 +150,7 @@ class ProvinceInfoViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = ProvinceInfoSerializer
-    queryset = ProvinceInfo.objects.all()
+    queryset = ProvinceInfo.objects.select_related()
 
 
 class ProgramDataViewSet(viewsets.ReadOnlyModelViewSet):
@@ -161,7 +161,7 @@ class ProgramDataViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = ProgramDataSerializer
-    queryset = ProgramData.objects.all()
+    queryset = ProgramData.objects.select_related()
 
 
 class CountryDataViewSet(viewsets.ReadOnlyModelViewSet):

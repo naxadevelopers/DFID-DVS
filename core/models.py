@@ -10,10 +10,6 @@ class Province(models.Model):
     def annual_spend(self):
         return self.districts.aggregate(total=Sum('district_spending__annual_spend'))
 
-    @property
-    def programs(self):
-        return self.districts.values('district_spending__program').distinct().count()
-
     def __str__(self):
         return self.name
 
@@ -60,6 +56,9 @@ class ProvinceData(models.Model):
     minute_access_to = models.FloatField()
     vulnerability_index = models.FloatField()
     gdp = models.IntegerField()
+
+    def district(self):
+        return self.province.districts.select_related().count()
 
     def active_programmes(self):
         return self.province.program_data_province.values('id', 'program__name')

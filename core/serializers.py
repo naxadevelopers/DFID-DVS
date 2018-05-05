@@ -42,7 +42,6 @@ class ProgramSerializer(serializers.ModelSerializer):
 
 class ProvinceDataSerializer(serializers.ModelSerializer):
     province = CharField(source='province.name', read_only=True)
-    district = IntegerField(source='province.districts.count', read_only=True)
     total_budget = FloatField(source='total_budget.total')
 
     class Meta:
