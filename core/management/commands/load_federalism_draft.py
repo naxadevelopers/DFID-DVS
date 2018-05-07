@@ -9,7 +9,7 @@ from core.models import Indicator, FederalismDraft, Province
 
 
 class Command(BaseCommand):
-    help = 'load federalism draft'
+    help = 'load federalism draft from federalism_draft.xlsx file'
 
     def add_arguments(self, parser):
         parser.add_argument("-f", type=argparse.FileType(), required=True)

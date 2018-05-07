@@ -9,7 +9,7 @@ from core.models import Province, ProvinceData
 
 
 class Command(BaseCommand):
-    help = 'load province data'
+    help = 'load province data from province.xlsx file'
 
     def add_arguments(self, parser):
         parser.add_argument("-f", type=argparse.FileType(), required=True)

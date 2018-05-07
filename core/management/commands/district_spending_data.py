@@ -8,7 +8,7 @@ from core.models import DistrictSpending, District, Program
 
 
 class Command(BaseCommand):
-    help = 'load district spending data'
+    help = 'load district spending data from district_spending.xls file'
 
     def add_arguments(self, parser):
         parser.add_argument("-f", type=argparse.FileType(), required=True)
