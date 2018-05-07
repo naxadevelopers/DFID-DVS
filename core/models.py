@@ -61,7 +61,7 @@ class ProvinceData(models.Model):
         return self.province.districts.select_related().count()
 
     def active_programmes(self):
-        return self.province.program_data_province.values('id', 'program__name')
+        return self.province.program_data_province.values('id', programName=models.F('program__name'))
 
     def total_budget(self):
         return self.province.program_data_province.aggregate(total=Sum('program__program_budget__budget'))
