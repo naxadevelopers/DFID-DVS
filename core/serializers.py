@@ -93,10 +93,11 @@ class ProvinceInfoSerializer(serializers.ModelSerializer):
 
 class ProgramDataSerializer(serializers.ModelSerializer):
     program = CharField(source='program.name')
+    program_id = CharField(source='program.id')
 
     class Meta:
         model = ProgramData
-        fields = ('id', 'program', 'description', 'sectors', 'program_budget')
+        fields = ('id', 'program', 'program_id', 'description', 'sectors', 'program_budget')
 
 
 class CountryDataSerializer(serializers.ModelSerializer):
