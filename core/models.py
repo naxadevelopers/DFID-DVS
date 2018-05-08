@@ -24,6 +24,7 @@ class District(models.Model):
 
 class Sector(models.Model):
     name = models.CharField(max_length=200)
+    code = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True, blank=True)
 
 
@@ -39,7 +40,6 @@ class Program(models.Model):
 
 class ProgramBudget(models.Model):
     program = models.ForeignKey(Program, related_name="program_budget", on_delete=models.CASCADE)
-    code = models.IntegerField()
     budget = models.FloatField(default=0)
 
 
@@ -61,7 +61,8 @@ class ProvinceData(models.Model):
         return self.province.districts.select_related().count()
 
     def active_programmes(self):
-        return self.province.program_data_province.values('id', programName=models.F('program__name'))
+        return self.province.program_data_province.values(programID=models.F('program'),
+                                                          programName=models.F('program__name'))
 
     def total_budget(self):
         return self.province.program_data_province.aggregate(total=Sum('program__program_budget__budget'))

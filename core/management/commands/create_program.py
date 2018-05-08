@@ -10,27 +10,12 @@ class Command(BaseCommand):
         program_list = ["Nepal Climate Change Support Programme",
                         "Nepal Local Governance Support Programme",
                         "Rural Access Programme 3",
-                        "Climate Smart Development for Nepal",
-                        "Nepal Health Sector Programme",
+                        "Nepal Health Sector Programme III",
                         "Post-Earthquake Reconstruction Programme",
-                        "Strengthening disaster resilience in Nepal",
                         "Integrated Programme for Strengthening Security and Justice",
                         "Access to Finance Programme",
                         "Accelerating Investment and Infrastructure in Nepal",
-                        "Skills for Employment Programme",
-                        "Nepal Peace Support Programme",
-                        "Support for the Economic Empowerment of Women and Girls",
-                        "Rural Water and Sanitation Programme Phase V",
-                        "Samarth-Nepal Market Development Programme",
-                        "Family Planning Project",
-                        "Evidence for Development",
-                        "Strengthening Road Safety in Nepal",
-                        "Improving Public Financial Management and Accountability in Nepal",
-                        "Operational Support for Housing Reconstruction in Nepal",
-                        "UK Contribution to the Government of Nepal’s Post-Earthquake Housing Reconstruction Grant Programme",
-                        "Seismic Retrofitting of Unsafe Housing in Nepal",
-                        "Emergency Support to Vulnerable Households",
-                        "Risk Management Office (RMO)-Phase III"
+
                         ]
         for program in program_list:
             new_program, created = Program.objects.get_or_create(name=program)
@@ -43,7 +28,11 @@ class Command(BaseCommand):
             {"Nepal Climate Change Support Programme": ["Province 4", "Province 3", "Province 5"]},
             {"Nepal Local Governance Support Programme": ["Province 4", "Province 1"]},
             {"Rural Access Programme 3": ["Province 1", "Province 2", "Province 3", "Province 5"]},
-            {"Climate Smart Development for Nepal": ["Province 5", "Province 2"]},
+            {"Nepal Health Sector Programme III": ["Province 5", "Province 2"]},
+            {"Post-Earthquake Reconstruction Programme": ["Province 6", "Province 1"]},
+            {"Integrated Programme for Strengthening Security and Justice": ["Province 6", "Province 1"]},
+            {"Access to Finance Programme": ["Province 3", "Province 2"]},
+            {"Accelerating Investment and Infrastructure in Nepal": ["Province 7", "Province 1"]},
 
         ]
 

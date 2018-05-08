@@ -84,11 +84,12 @@ class FederalismDraftSerializer(serializers.ModelSerializer):
 
 class ProvinceInfoSerializer(serializers.ModelSerializer):
     name = CharField(source='name.name')
+    province_id = IntegerField(source='name.id')
     total_budget = FloatField(source='total_budget.total')
 
     class Meta:
         model = ProvinceInfo
-        fields = ('id', 'name', 'total_budget', 'active_programmes')
+        fields = ('id', 'name', 'province_id', 'total_budget', 'active_programmes')
 
 
 class ProgramDataSerializer(serializers.ModelSerializer):

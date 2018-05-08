@@ -9,23 +9,24 @@ from core.models import Program, ProgramBudget
 
 
 class Command(BaseCommand):
-    help = 'load program budget from nepal_data_mapping file'
+    help = 'load program budget from programs file'
 
     def add_arguments(self, parser):
-        parser.add_argument("-f", type=argparse.FileType(), required=True)
+        parser.add_argument("-f", type=argparse.FileType())
 
     def handle(self, *args, **options):
-        df = pd.read_excel(sys.argv[3], sheet_name="Programmes")
+        df = pd.read_excel(sys.argv[3])
         try:
-            program_budget = [
+            budget = [
                 ProgramBudget(
-                        program=Program.objects.get(name=df['Programme'][row]),
-                        code=df['Prog Code'][row],
+                        program=Program.objects.get(name=df['Program'][row]),
                         budget=df['Value'][row]
-                ) for row in range(0, 23)
+
+
+            ) for row in range(0, 8)
             ]
-            program_budget = ProgramBudget.objects.bulk_create(program_budget)
-            if program_budget:
+            budget = ProgramBudget.objects.bulk_create(budget)
+            if budget:
                 self.stdout.write('Successfully loaded Program budget data ..')
 
         except Program.DoesNotExist:
