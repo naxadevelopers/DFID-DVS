@@ -117,7 +117,8 @@ class ProgramData(models.Model):
         return self.program.description
 
     def sectors(self):
-        return self.program.sector_data_program.extra(select={'id': 'sector_id'}).values('id', 'sector__name')
+        return self.program.sector_data_program.values(sectorId=models.F('sector_id'),
+                                                       sectorName=models.F('sector__name'))
 
 
 class CountryData(models.Model):
