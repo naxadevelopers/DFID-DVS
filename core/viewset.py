@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
 
-from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, FederalismDraft, \
+from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, IndicatorData, \
     Sector, ProvinceInfo, ProgramData, CountryData
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
-    PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, FederalismDraftSerializer, SectorSerializer, \
+    PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, IndicatorDataSerializer, SectorSerializer, \
     ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer
 
 
@@ -120,15 +120,15 @@ class IndicatorViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Indicator.objects.all()
 
 
-class FederalismDraftViewSet(viewsets.ReadOnlyModelViewSet):
+class IndicatorDataViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
-    list: list of Federalism Draft.
+    list: list of Indicator data.
 
     """
 
-    serializer_class = FederalismDraftSerializer
-    queryset = FederalismDraft.objects.select_related('province', 'indicator')
+    serializer_class = IndicatorDataSerializer
+    queryset = IndicatorData.objects.select_related('province', 'indicator')
 
 
 class SectorViewSet(viewsets.ReadOnlyModelViewSet):

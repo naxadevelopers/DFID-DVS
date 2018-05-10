@@ -84,13 +84,14 @@ class Indicator(models.Model):
         return self.name
 
 
-class FederalismDraft(models.Model):
-    dfid_qn = models.IntegerField()
-    province = models.ForeignKey(Province, related_name="federalism_draft_province", on_delete=models.CASCADE)
-    indicator = models.ForeignKey(Indicator, related_name="federalism_draft_province_indicator",
+class IndicatorData(models.Model):
+    province = models.ForeignKey(Province, related_name="indicator_data_province", on_delete=models.CASCADE)
+    indicator = models.ForeignKey(Indicator, related_name="indicator_data_province_indicator",
                                   on_delete=models.SET_NULL, null=True)
-    values = models.FloatField()
+    value = models.FloatField()
     unit = models.CharField(max_length=200)
+    years = models.IntegerField()
+    source = models.CharField(max_length=250)
 
 
 class ProvinceInfo(models.Model):

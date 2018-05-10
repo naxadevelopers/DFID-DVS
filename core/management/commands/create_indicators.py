@@ -9,13 +9,13 @@ from core.models import Indicator
 
 
 class Command(BaseCommand):
-    help = 'load Indicators from federalism_draft file'
+    help = 'load Indicators from province_indicators_filtered file'
 
     def add_arguments(self, parser):
         parser.add_argument("-f", type=argparse.FileType(), required=True)
 
     def handle(self, *args, **options):
-        df = pd.read_excel(sys.argv[3], sheet_name="Province").replace({r'\n': ' '}, regex=True)
+        df = pd.read_excel(sys.argv[3])
         indicators = df['Indicators'].unique()
         for indicator in indicators:
             new_indicator, created = Indicator.objects.get_or_create(name=indicator)
