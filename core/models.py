@@ -140,3 +140,20 @@ class CountryData(models.Model):
 class SectorData(models.Model):
     sector = models.ForeignKey(Sector, related_name="sector_data_sector", on_delete=models.CASCADE)
     program = models.ForeignKey(Program, related_name="sector_data_program", on_delete=models.SET_NULL, null=True)
+
+
+class Layer(models.Model):
+    name = models.CharField(max_length=250)
+    sector = models.ManyToManyField(Sector, related_name="layer", )
+
+
+class LayerData(models.Model):
+    layer_name = models.ForeignKey(Layer, related_name='layer_data', on_delete=models.CASCADE)
+    source = models.CharField(max_length=250)
+    date = models.CharField(max_length=200)
+    type = models.CharField(max_length=250)
+    notes = models.TextField()
+    file = models.FileField(upload_to='layer/')
+
+    def sectors(self):
+        return self.layer_name.sector.values('code')

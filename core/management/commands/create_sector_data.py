@@ -25,5 +25,5 @@ class Command(BaseCommand):
         ]
         sector_data = SectorData.objects.bulk_create(sector_data)
         if sector_data:
-            self.stdout.write('Successfully Sectors data ..')
+            self.stdout.write('Successfully loaded Sectors data ..')
 

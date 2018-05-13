@@ -4,10 +4,10 @@ from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
 
 from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, IndicatorData, \
-    Sector, ProvinceInfo, ProgramData, CountryData
+    Sector, ProvinceInfo, ProgramData, CountryData, LayerData
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
     PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, IndicatorDataSerializer, SectorSerializer, \
-    ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer
+    ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer, LayerDataSerializer
 
 
 # Serializers define the API representation.
@@ -173,3 +173,14 @@ class CountryDataViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = CountryDataSerializer
     queryset = CountryData.objects.all()
+
+
+class LayerDataViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of layer data.
+
+    """
+
+    serializer_class = LayerDataSerializer
+    queryset = LayerData.objects.select_related()

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import CharField, IntegerField, FloatField
 
 from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
-    IndicatorData, ProvinceInfo, ProgramData, CountryData
+    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -108,3 +108,11 @@ class CountryDataSerializer(serializers.ModelSerializer):
         fields = ('id', 'provinces', 'paalikas', 'municipalities', 'total_population', 'area', 'population_density',
                   'poverty_rate', 'literacy_rate', 'population_under_poverty_line', 'per_capita_income',
                   'human_development_index', 'gdp')
+
+
+class LayerDataSerializer(serializers.ModelSerializer):
+    layer_name = CharField(source='layer_name.name')
+
+    class Meta:
+        model = LayerData
+        fields = ('id', 'layer_name', 'type', 'file', 'sectors')

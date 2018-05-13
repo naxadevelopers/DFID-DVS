@@ -19,6 +19,8 @@ router.register(r'sectors', viewset.SectorViewSet, base_name='sectors-list')
 router.register(r'province-info', viewset.ProvinceInfoViewSet, base_name='province-info-list')
 router.register(r'programme-data', viewset.ProgramDataViewSet, base_name='program-data-list')
 router.register(r'country-data', viewset.CountryDataViewSet, base_name='country-data-list')
+router.register(r'layer-data', viewset.LayerDataViewSet, base_name='layer')
+
 
 urlpatterns = [
     path('', include(router.urls)),
