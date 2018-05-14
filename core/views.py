@@ -2,12 +2,17 @@ import json
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.views.generic import UpdateView
+from django.shortcuts import redirect
 
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
+
+from .models import LayerData
+from .forms import LayerDataform
 
 
 def index(request):
@@ -54,3 +59,9 @@ def country_geojson(request):
         pass
 
     return Response(data)
+
+
+class LayerDatafileView(UpdateView):
+    model = LayerData
+    form_class = LayerDataform
+    template_name = 'core/layer_file.html'

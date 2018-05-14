@@ -23,7 +23,6 @@ class Command(BaseCommand):
                     date=df['Date'][row],
                     type=df['Type'][row],
                     notes=df['Notes'][row],
-                    # file=df['Link'[row]]
 
             ) for row in range(0, 24)
         ]

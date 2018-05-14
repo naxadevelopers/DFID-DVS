@@ -144,7 +144,10 @@ class SectorData(models.Model):
 
 class Layer(models.Model):
     name = models.CharField(max_length=250)
-    sector = models.ManyToManyField(Sector, related_name="layer", )
+    sector = models.ManyToManyField(Sector, related_name="layer")
+
+    def __str__(self):
+        return self.name
 
 
 class LayerData(models.Model):
@@ -153,7 +156,7 @@ class LayerData(models.Model):
     date = models.CharField(max_length=200)
     type = models.CharField(max_length=250)
     notes = models.TextField()
-    file = models.FileField(upload_to='layer/')
+    file = models.FileField(upload_to='layer/', null=True)
 
     def sectors(self):
         return self.layer_name.sector.values('code')

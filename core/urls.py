@@ -27,5 +27,6 @@ urlpatterns = [
     path('api-token-auth/', views.token),
     path('geojson/country/', views.country_geojson),
     path('geojson/province/<province_id>/', views.province_geojson),
+    path('layer-data-file/<int:pk>/', views.LayerDatafileView.as_view()),
 
 ]
