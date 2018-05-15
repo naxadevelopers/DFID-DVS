@@ -111,8 +111,21 @@ class CountryDataSerializer(serializers.ModelSerializer):
 
 
 class LayerDataSerializer(serializers.ModelSerializer):
+
     layer_name = CharField(source='layer_name.name')
 
     class Meta:
         model = LayerData
-        fields = ('id', 'layer_name', 'type', 'file', 'sectors')
+        fields = ('id', 'layer_name', 'type', 'file', 'sectors', 'layer_server_url', 'layer_path')
+
+    def to_representation(self, obj):
+        data = super().to_representation(obj)
+
+        if obj.type == 'Raster':
+            data.pop('file')
+
+        else:
+            data.pop('layer_server_url')
+            data.pop('layer_path')
+
+        return data

@@ -157,6 +157,8 @@ class LayerData(models.Model):
     type = models.CharField(max_length=250)
     notes = models.TextField()
     file = models.FileField(upload_to='layer/', null=True)
+    layer_server_url = models.CharField(max_length=300, null=True)
+    layer_path = models.CharField(max_length=300, null=True)
 
     def sectors(self):
         return self.layer_name.sector.values('code')
