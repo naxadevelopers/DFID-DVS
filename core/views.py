@@ -39,7 +39,7 @@ def province_geojson(request, province_id):
     """
     data = {}
     try:
-        with open('jsons/{}.geojson'.format(province_id)) as f:
+        with open('jsons/{}.json'.format(province_id)) as f:
             data = json.load(f)
     except:
         return Response(data, status=status.HTTP_404_NOT_FOUND)
@@ -53,7 +53,7 @@ def country_geojson(request):
     """
     data = {}
     try:
-        with open('jsons/province.geojson') as f:
+        with open('jsons/province.json') as f:
             data = json.load(f)
     except:
         pass
