@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Sum
-
+from django.db.models import Prefetch
 
 class Province(models.Model):
     name = models.CharField(max_length=200)
@@ -156,7 +156,7 @@ class LayerData(models.Model):
     date = models.CharField(max_length=200)
     type = models.CharField(max_length=250)
     notes = models.TextField()
-    file = models.FileField(upload_to='layer/', null=True)
+    file = models.FileField(upload_to='layer/', null=True, blank=True)
     layer_server_url = models.CharField(max_length=300, null=True)
     layer_path = models.CharField(max_length=300, null=True)
 

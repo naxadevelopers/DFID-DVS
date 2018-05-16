@@ -64,4 +64,3 @@ def country_geojson(request):
 class LayerDatafileView(UpdateView):
     model = LayerData
     form_class = LayerDataform
-    template_name = 'core/layer_file.html'
