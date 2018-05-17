@@ -157,7 +157,8 @@ REST_FRAMEWORK = {
 
 # corsheaders
 
-CORS_URLS_REGEX = r'^/core/.*$'
+CORS_URLS_REGEX = (r'^/core/.*$', r'^')
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 try:
