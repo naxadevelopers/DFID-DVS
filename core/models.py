@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Sum
-from django.db.models import Prefetch
+
 
 class Province(models.Model):
     name = models.CharField(max_length=200)
