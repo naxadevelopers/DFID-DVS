@@ -157,8 +157,12 @@ REST_FRAMEWORK = {
 
 # corsheaders
 
-CORS_URLS_REGEX = (r'^')
-
+CORS_ORIGIN_WHITELIST = (
+    'http://139.59.67.104:4000',
+)
+CORS_ORIGIN_REGEX_WHITELIST = (
+    'http://139.59.67.104:4000',
+)
 CORS_ORIGIN_ALLOW_ALL = True
 
 try:
