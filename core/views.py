@@ -61,6 +61,36 @@ def country_geojson(request):
     return Response(data)
 
 
+@api_view(['GET'])
+def municipalities_geojson(request):
+    """
+    municipalities geojson
+    """
+    data = {}
+    try:
+        with open('jsons/munis.json') as f:
+            data = json.load(f)
+    except:
+        pass
+
+    return Response(data)
+
+
+@api_view(['GET'])
+def ipssj_geojson(request):
+    """
+    ipssj program geojson
+    """
+    data = {}
+    try:
+        with open('jsons/ipssj_jan18_small.json') as f:
+            data = json.load(f)
+    except:
+        pass
+
+    return Response(data)
+
+
 class LayerDatafileView(UpdateView):
     model = LayerData
     form_class = LayerDataform
