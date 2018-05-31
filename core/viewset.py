@@ -37,7 +37,7 @@ class ProvinceDataViewSet(viewsets.ReadOnlyModelViewSet):
                      'population_under_poverty_line', 'per_capita_income', 'hh_by_lowest_wealth_quantiles',
                      'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp']
 
-    queryset = ProvinceData.objects.select_related()
+    queryset = ProvinceData.objects.select_related('province')
 
     def get_queryset(self):
         province_query = self.request.query_params.get('province')
@@ -150,7 +150,7 @@ class ProvinceInfoViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = ProvinceInfoSerializer
-    queryset = ProvinceInfo.objects.select_related()
+    queryset = ProvinceInfo.objects.select_related('name')
 
 
 class ProgramDataViewSet(viewsets.ReadOnlyModelViewSet):
@@ -161,7 +161,7 @@ class ProgramDataViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = ProgramDataSerializer
-    queryset = ProgramData.objects.select_related()
+    queryset = ProgramData.objects.select_related().prefetch_related()
 
 
 class CountryDataViewSet(viewsets.ReadOnlyModelViewSet):
@@ -183,5 +183,7 @@ class LayerDataViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     serializer_class = LayerDataSerializer
-    queryset = LayerData.objects.select_related()
+
+    def get_queryset(self):
+        return LayerData.objects.select_related('layer_name').prefetch_related('layer_name__sector').all()
 

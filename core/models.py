@@ -64,6 +64,9 @@ class ProvinceData(models.Model):
         return self.province.program_data_province.values(programID=models.F('program'),
                                                           programName=models.F('program__name'))
 
+        # programmes = self.province.program_data_province.all()
+        # return [[a.program,a.program__name] for a in programmes]
+
     def total_budget(self):
         return self.province.program_data_province.aggregate(total=Sum('program__program_budget__budget'))
 
@@ -161,4 +164,5 @@ class LayerData(models.Model):
     layer_path = models.CharField(max_length=300, null=True)
 
     def sectors(self):
-        return self.layer_name.sector.values('code')
+        sectors = self.layer_name.sector.all()
+        return [{'code': sector.code} for sector in sectors]
