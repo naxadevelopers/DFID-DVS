@@ -158,7 +158,7 @@ REST_FRAMEWORK = {
 # corsheaders
 
 # CORS_URLS_REGEX = r'^core/.*$'
-CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ORIGIN_ALLOW_ALL = True
 
 try:
     from .local_settings import *
