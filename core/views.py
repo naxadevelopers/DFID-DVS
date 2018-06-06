@@ -32,63 +32,63 @@ def token(request):
     })
 
 
-@api_view(['GET'])
-def province_geojson(request, province_id):
-    """
-    detail of particular province geojson
-    """
-    data = {}
-    try:
-        with open('jsons/{}.json'.format(province_id)) as f:
-            data = json.load(f)
-    except:
-        return Response(data, status=status.HTTP_404_NOT_FOUND)
-    return Response(data)
-
-
-@api_view(['GET'])
-def country_geojson(request):
-    """
-    list of country geojson
-    """
-    data = {}
-    try:
-        with open('jsons/province.json') as f:
-            data = json.load(f)
-    except:
-        pass
-
-    return Response(data)
-
-
-@api_view(['GET'])
-def municipalities_geojson(request):
-    """
-    municipalities geojson
-    """
-    data = {}
-    try:
-        with open('jsons/munis.json') as f:
-            data = json.load(f)
-    except:
-        pass
-
-    return Response(data)
-
-
-@api_view(['GET'])
-def ipssj_geojson(request):
-    """
-    ipssj program geojson
-    """
-    data = {}
-    try:
-        with open('jsons/ipssj_jan18_small.json') as f:
-            data = json.load(f)
-    except:
-        pass
-
-    return Response(data)
+# @api_view(['GET'])
+# def province_geojson(request, province_id):
+#     """
+#     detail of particular province geojson
+#     """
+#     data = {}
+#     try:
+#         with open('jsons/{}.json'.format(province_id)) as f:
+#             data = json.load(f)
+#     except:
+#         return Response(data, status=status.HTTP_404_NOT_FOUND)
+#     return Response(data)
+#
+#
+# @api_view(['GET'])
+# def country_geojson(request):
+#     """
+#     list of country geojson
+#     """
+#     data = {}
+#     try:
+#         with open('jsons/province.json') as f:
+#             data = json.load(f)
+#     except:
+#         pass
+#
+#     return Response(data)
+#
+#
+# @api_view(['GET'])
+# def municipalities_geojson(request):
+#     """
+#     municipalities geojson
+#     """
+#     data = {}
+#     try:
+#         with open('jsons/munis.json') as f:
+#             data = json.load(f)
+#     except:
+#         pass
+#
+#     return Response(data)
+#
+#
+# @api_view(['GET'])
+# def ipssj_geojson(request):
+#     """
+#     ipssj program geojson
+#     """
+#     data = {}
+#     try:
+#         with open('jsons/ipssj_jan18_small.json') as f:
+#             data = json.load(f)
+#     except:
+#         pass
+#
+#     return Response(data)
 
 
 class LayerDatafileView(UpdateView):
