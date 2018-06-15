@@ -81,7 +81,7 @@ class DistrictSpending(models.Model):
 class Indicator(models.Model):
     name = models.CharField(max_length=200)
     source = models.CharField(max_length=250, null=True)
-    glossary = models.CharField(max_length=250, null=True, blank=True)
+    glossary = models.TextField(null=True)
 
     def __str__(self):
         return self.name
