@@ -99,3 +99,6 @@ class LayerDatafileView(UpdateView):
 class AreaUpdateView(UpdateView):
     model = Area
     fields = '__all__'
+
+    def get_success_url(self):
+        return "success"

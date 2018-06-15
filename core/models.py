@@ -100,8 +100,9 @@ class IndicatorData(models.Model):
 class ProvinceInfo(models.Model):
     name = models.ForeignKey(Province, related_name="province_info", on_delete=models.CASCADE)
 
+    @property
     def total_budget(self):
-        return self.name.program_data_province.aggregate(total=Sum('program__program_budget__budget'))
+        return None
 
     def active_programmes(self):
         return self.name.program_data_province.values('program').count()

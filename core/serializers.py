@@ -85,7 +85,9 @@ class IndicatorDataSerializer(serializers.ModelSerializer):
 class ProvinceInfoSerializer(serializers.ModelSerializer):
     name = CharField(source='name.name')
     province_id = IntegerField(source='name.id')
-    total_budget = FloatField(source='total_budget.total')
+
+    def total_budget(self):
+        pass
 
     class Meta:
         model = ProvinceInfo
