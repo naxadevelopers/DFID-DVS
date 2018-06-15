@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, ListView
 from django.shortcuts import redirect
 
 from rest_framework.authtoken.models import Token
@@ -10,6 +10,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import reverse
 
 from .models import LayerData, Area
 from .forms import LayerDataform
@@ -101,4 +102,10 @@ class AreaUpdateView(UpdateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return "success"
+        return reverse("core:area_list")
+
+
+class AreaListView(ListView):
+    model = Area
+    fields = '__all__'
+

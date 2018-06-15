@@ -5,6 +5,7 @@ from rest_framework import routers
 from . import views
 from . import viewset
 
+app_name = 'core'
 
 router = routers.DefaultRouter()
 router.register(r'users', viewset.UserViewSet)
@@ -35,5 +36,6 @@ urlpatterns = [
     # path('geojson/province/<province_id>/', views.province_geojson),
     path('layer-data-file/<int:pk>/', views.LayerDatafileView.as_view()),
     path('municipality-update/<int:pk>/', views.AreaUpdateView.as_view()),
+    path('municipality-list/', views.AreaListView.as_view(), name="area_list"),
 
 ]
