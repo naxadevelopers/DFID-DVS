@@ -11,7 +11,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import LayerData
+from .models import LayerData, Area
 from .forms import LayerDataform
 
 
@@ -94,3 +94,8 @@ def token(request):
 class LayerDatafileView(UpdateView):
     model = LayerData
     form_class = LayerDataform
+
+
+class AreaUpdateView(UpdateView):
+    model = Area
+    fields = '__all__'

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import CharField, IntegerField, FloatField
 
 from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
-    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData
+    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -30,7 +30,7 @@ class PartnerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Partner
-        exclude = ()
+        fields = ('id', 'name', 'description')
 
 
 class ProgramSerializer(serializers.ModelSerializer):
@@ -127,5 +127,41 @@ class LayerDataSerializer(serializers.ModelSerializer):
         else:
             data.pop('layer_server_url')
             data.pop('layer_path')
+
+        return data
+
+
+class DatasetSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Dataset
+        exclude = ()
+
+
+class ProgramSpendSerializer(serializers.ModelSerializer):
+    program = CharField(source='program.name')
+    program_id = IntegerField(source='program.id')
+    partners = PartnerSerializer(many=True)
+
+    class Meta:
+        model = ProgramData
+        fields = ('program', 'program_id', 'program_budget', 'partners', 'total_no_of_partners')
+
+
+class AreaSerializer(serializers.ModelSerializer):
+    programs = ProgramSpendSerializer(many=True)
+    total_program_budget = serializers.FloatField(source='total_program_budget.total')
+
+    class Meta:
+        model = Area
+        fields = ('id', 'hlcit_code', 'type', 'local_name', 'programs', 'total_program_budget', 'total_no_of_programmes')
+
+    def to_representation(self, obj):
+        data = super().to_representation(obj)
+
+        if obj.type == 'Not Municipality':
+            data.pop('programs')
+            data.pop('total_program_budget')
+            data.pop('total_no_of_programmes')
 
         return data

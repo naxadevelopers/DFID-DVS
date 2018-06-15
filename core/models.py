@@ -28,14 +28,12 @@ class Sector(models.Model):
     description = models.TextField(null=True, blank=True)
 
 
-class Partner(models.Model):
-    name = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
-
-
 class Program(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class ProgramBudget(models.Model):
@@ -82,6 +80,8 @@ class DistrictSpending(models.Model):
 
 class Indicator(models.Model):
     name = models.CharField(max_length=200)
+    source = models.CharField(max_length=250, null=True)
+    glossary = models.CharField(max_length=250, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -123,6 +123,18 @@ class ProgramData(models.Model):
     def sectors(self):
         return self.program.sector_data_program.values(sectorId=models.F('sector_id'),
                                                        sectorName=models.F('sector__name'))
+
+    def partners(self):
+        return self.partner_program.values('name')
+
+    def total_no_of_partners(self):
+        return self.partner_program.count()
+
+
+class Partner(models.Model):
+    name = models.CharField(max_length=200)
+    program = models.ForeignKey(ProgramData, on_delete=models.CASCADE, null=True, related_name="partner_program")
+    description = models.TextField(null=True, blank=True)
 
 
 class CountryData(models.Model):
@@ -166,3 +178,25 @@ class LayerData(models.Model):
     def sectors(self):
         sectors = self.layer_name.sector.all()
         return [{'code': sector.code} for sector in sectors]
+
+
+class Dataset(models.Model):
+    title = models.CharField(max_length=300)
+    description = models.TextField()
+    source = models.TextField()
+    date = models.DateField()
+    url = models.URLField()
+
+
+class Area(models.Model):
+    hlcit_code = models.CharField(max_length=300, unique=True)
+    type = models.CharField(max_length=300)
+    local_name = models.CharField(max_length=300)
+    programs = models.ManyToManyField(ProgramData, blank=True)
+
+    def total_program_budget(self):
+        return self.programs.aggregate(total=Sum('program__program_budget__budget'))
+
+    def total_no_of_programmes(self):
+        return self.programs.count()
+

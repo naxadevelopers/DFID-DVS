@@ -4,12 +4,11 @@ from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
 
 from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, IndicatorData, \
-    Sector, ProvinceInfo, ProgramData, CountryData, LayerData, Layer
+    Sector, ProvinceInfo, ProgramData, CountryData, LayerData, Layer, Dataset, Area
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
     PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, IndicatorDataSerializer, SectorSerializer, \
-    ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer, LayerDataSerializer
+    ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer, LayerDataSerializer, DatasetSerializer, AreaSerializer
 
-from django.db.models import Prefetch
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -187,3 +186,24 @@ class LayerDataViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return LayerData.objects.select_related('layer_name').prefetch_related('layer_name__sector').all()
 
+
+class DatasetViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of datasets.
+
+    """
+
+    serializer_class = DatasetSerializer
+    queryset = Dataset.objects.all()
+
+
+class AreaViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of municipalities.
+
+    """
+
+    serializer_class = AreaSerializer
+    queryset = Area.objects.all()

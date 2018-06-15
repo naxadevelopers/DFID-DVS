@@ -20,6 +20,10 @@ router.register(r'province-info', viewset.ProvinceInfoViewSet, base_name='provin
 router.register(r'programme-data', viewset.ProgramDataViewSet, base_name='program-data-list')
 router.register(r'country-data', viewset.CountryDataViewSet, base_name='country-data-list')
 router.register(r'layer-data', viewset.LayerDataViewSet, base_name='layer')
+router.register(r'dataset', viewset.DatasetViewSet, base_name='dataset')
+router.register(r'partners', viewset.PartnerViewSet, base_name='partner-list')
+router.register(r'municipalities', viewset.AreaViewSet, base_name='municipalities')
+
 
 
 urlpatterns = [
@@ -30,5 +34,6 @@ urlpatterns = [
     # path('geojson/ipssj/', views.ipssj_geojson),
     # path('geojson/province/<province_id>/', views.province_geojson),
     path('layer-data-file/<int:pk>/', views.LayerDatafileView.as_view()),
+    path('municipality-update/<int:pk>/', views.AreaUpdateView.as_view()),
 
 ]
