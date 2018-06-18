@@ -4,10 +4,12 @@ from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
 
 from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, IndicatorData, \
-    Sector, ProvinceInfo, ProgramData, CountryData, LayerData, Layer, Dataset, Area
+    Sector, ProvinceInfo, ProgramData, CountryData, LayerData, Layer, Dataset, Area, GlossaryData
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
     PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, IndicatorDataSerializer, SectorSerializer, \
-    ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer, LayerDataSerializer, DatasetSerializer, AreaSerializer
+    ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer, LayerDataSerializer, DatasetSerializer, AreaSerializer, \
+    GlossaryDataSerializer
+
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -207,3 +209,14 @@ class AreaViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = AreaSerializer
     queryset = Area.objects.all()
+
+
+class GlossaryDataViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of glossary data.
+
+    """
+
+    serializer_class = GlossaryDataSerializer
+    queryset = GlossaryData.objects.select_related()

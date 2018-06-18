@@ -24,6 +24,7 @@ router.register(r'layer-data', viewset.LayerDataViewSet, base_name='layer')
 router.register(r'dataset', viewset.DatasetViewSet, base_name='dataset')
 router.register(r'partners', viewset.PartnerViewSet, base_name='partner-list')
 router.register(r'municipalities', viewset.AreaViewSet, base_name='municipalities')
+router.register(r'glossary-data', viewset.GlossaryDataViewSet, base_name='glossary-data')
 
 
 

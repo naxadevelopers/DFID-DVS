@@ -198,3 +198,6 @@ class Area(models.Model):
     def total_no_of_programmes(self):
         return self.programs.count()
 
+
+class GlossaryData(models.Model):
+    title = models.ForeignKey(Indicator, on_delete=models.CASCADE)

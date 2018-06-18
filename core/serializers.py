@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import CharField, IntegerField, FloatField
 
 from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
-    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area
+    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area, GlossaryData
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -167,3 +167,13 @@ class AreaSerializer(serializers.ModelSerializer):
             data.pop('total_no_of_programmes')
 
         return data
+
+
+class GlossaryDataSerializer(serializers.ModelSerializer):
+    title = CharField(source='title.name')
+    source = CharField(source='title.source')
+    description = CharField(source='title.glossary')
+
+    class Meta:
+        model = GlossaryData
+        fields = ('id', 'title', 'source', 'description')
