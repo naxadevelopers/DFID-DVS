@@ -201,3 +201,7 @@ class Area(models.Model):
 
 class GlossaryData(models.Model):
     title = models.ForeignKey(Indicator, on_delete=models.CASCADE)
+
+
+class Pdf(models.Model):
+    pdf = models.FileField(upload_to='pdf')

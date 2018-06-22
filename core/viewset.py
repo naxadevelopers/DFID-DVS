@@ -4,11 +4,11 @@ from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
 
 from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, IndicatorData, \
-    Sector, ProvinceInfo, ProgramData, CountryData, LayerData, Layer, Dataset, Area, GlossaryData
+    Sector, ProvinceInfo, ProgramData, CountryData, LayerData, Layer, Dataset, Area, GlossaryData, Pdf
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
     PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, IndicatorDataSerializer, SectorSerializer, \
     ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer, LayerDataSerializer, DatasetSerializer, AreaSerializer, \
-    GlossaryDataSerializer
+    GlossaryDataSerializer, PdfSerializer
 
 
 # Serializers define the API representation.
@@ -220,3 +220,14 @@ class GlossaryDataViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = GlossaryDataSerializer
     queryset = GlossaryData.objects.select_related()
+
+
+class PdfViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+
+    list: list of pdf files of each province.
+
+    """
+
+    serializer_class = PdfSerializer
+    queryset = Pdf.objects.select_related()

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import CharField, IntegerField, FloatField
 
 from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
-    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area, GlossaryData
+    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area, GlossaryData, Pdf
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -177,3 +177,10 @@ class GlossaryDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = GlossaryData
         fields = ('id', 'title', 'source', 'description')
+
+
+class PdfSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Pdf
+        exclude = ()

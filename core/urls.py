@@ -25,7 +25,7 @@ router.register(r'dataset', viewset.DatasetViewSet, base_name='dataset')
 router.register(r'partners', viewset.PartnerViewSet, base_name='partner-list')
 router.register(r'municipalities', viewset.AreaViewSet, base_name='municipalities')
 router.register(r'glossary-data', viewset.GlossaryDataViewSet, base_name='glossary-data')
-
+router.register(r'pdf', viewset.PdfViewSet, base_name='pdf')
 
 
 urlpatterns = [
@@ -38,5 +38,7 @@ urlpatterns = [
     path('layer-data-file/<int:pk>/', views.LayerDatafileView.as_view()),
     path('municipality-update/<int:pk>/', views.AreaUpdateView.as_view()),
     path('municipality-list/', views.AreaListView.as_view(), name="area_list"),
+    path('pdf-create/', views.PdfFormView.as_view(), name="pdf_form"),
+    path('pdf-list/', views.PdfListView.as_view(), name="pdf_list"),
 
 ]
