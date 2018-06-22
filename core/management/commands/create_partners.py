@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from core.models import Program
+from core.models import Partner
 
 
 # test data for partners
@@ -18,6 +18,6 @@ class Command(BaseCommand):
 
                         ]
         for partner in partner_list:
-            new_partner, created = Program.objects.get_or_create(name=partner)
+            new_partner, created = Partner.objects.get_or_create(name=partner)
             if created:
                 self.stdout.write('Successfully created partnermes .. "%s"' % partner)
