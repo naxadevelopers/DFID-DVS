@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import reverse
 
-from .models import LayerData, Area, Pdf, Province
+from .models import LayerData, Area, Pdf, Province, Partner
 from .forms import LayerDataform
 
 
@@ -120,3 +120,15 @@ class PdfFormView(CreateView):
 
 class PdfListView(ListView):
     model = Pdf
+
+
+class PartnerUpdateView(UpdateView):
+    model = Partner
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse("core:partner_list")
+
+
+class PartnerListView(ListView):
+    model = Partner

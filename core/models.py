@@ -131,7 +131,7 @@ class ProgramData(models.Model):
 
 class Partner(models.Model):
     name = models.CharField(max_length=200)
-    program = models.ForeignKey(ProgramData, on_delete=models.CASCADE, null=True, related_name="partner_program")
+    program = models.ManyToManyField(ProgramData, related_name="partner_program")
     description = models.TextField(null=True, blank=True)
 
 
@@ -204,4 +204,5 @@ class GlossaryData(models.Model):
 
 
 class Pdf(models.Model):
+    title = models.CharField(max_length=250, null=True, blank=True)
     pdf = models.FileField(upload_to='pdf')

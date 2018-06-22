@@ -40,5 +40,7 @@ urlpatterns = [
     path('municipality-list/', views.AreaListView.as_view(), name="area_list"),
     path('pdf-create/', views.PdfFormView.as_view(), name="pdf_form"),
     path('pdf-list/', views.PdfListView.as_view(), name="pdf_list"),
+    path('partner-update/<int:pk>/', views.PartnerUpdateView.as_view()),
+    path('partner-list/', views.PartnerListView.as_view(), name="partner_list"),
 
 ]
