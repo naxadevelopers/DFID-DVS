@@ -65,8 +65,11 @@ class ProvinceData(models.Model):
         # programmes = self.province.program_data_province.all()
         # return [[a.program,a.program__name] for a in programmes]
 
-    def total_budget(self):
-        return self.province.program_data_province.aggregate(total=Sum('program__program_budget__budget'))
+    # def total_budget(self):
+    #     return self.province.program_data_province.aggregate(total=Sum('program__program_budget__budget'))
+
+    def budget(self):
+        return None
 
     def description(self):
         return self.province.description
