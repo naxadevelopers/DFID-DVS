@@ -37,7 +37,7 @@ class ProgramSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Program
-        fields = ('id', 'name', 'description')
+        fields = ('id', 'name', 'description', 'sectors')
 
 
 class ProvinceDataSerializer(serializers.ModelSerializer):
@@ -118,7 +118,7 @@ class LayerDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LayerData
-        fields = ('id', 'layer_name', 'type', 'file', 'sectors', 'layer_server_url', 'layer_path')
+        fields = ('id', 'layer_name', 'type', 'file', 'sectors', 'layer_server_url', 'layer_path', 'date', 'source', 'notes')
 
     def to_representation(self, obj):
         data = super().to_representation(obj)

@@ -35,6 +35,9 @@ class Program(models.Model):
     def __str__(self):
         return self.name
 
+    def sectors(self):
+        return self.program_data_program.values(sectorId=models.F('program__sector_data_program__sector_id'))
+
 
 class ProgramBudget(models.Model):
     program = models.ForeignKey(Program, related_name="program_budget", on_delete=models.CASCADE)
