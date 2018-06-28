@@ -153,10 +153,11 @@ class ProgramSpendSerializer(serializers.ModelSerializer):
 class AreaSerializer(serializers.ModelSerializer):
     programs = ProgramSpendSerializer(many=True)
     total_program_budget = serializers.FloatField(source='total_program_budget.total')
+    province_id = serializers.IntegerField(source='province.id')
 
     class Meta:
         model = Area
-        fields = ('id', 'hlcit_code', 'type', 'local_name', 'programs', 'total_program_budget', 'total_no_of_programmes')
+        fields = ('id', 'hlcit_code', 'province_id', 'type', 'local_name', 'programs', 'total_program_budget', 'total_no_of_programmes')
 
     def to_representation(self, obj):
         data = super().to_representation(obj)

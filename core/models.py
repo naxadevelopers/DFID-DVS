@@ -194,6 +194,7 @@ class Dataset(models.Model):
 
 class Area(models.Model):
     hlcit_code = models.CharField(max_length=300, unique=True)
+    province = models.ForeignKey(Province, related_name='area_province', on_delete=models.CASCADE, null=True)
     type = models.CharField(max_length=300)
     local_name = models.CharField(max_length=300)
     programs = models.ManyToManyField(ProgramData, blank=True)
