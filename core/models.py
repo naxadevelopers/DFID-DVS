@@ -213,3 +213,6 @@ class GlossaryData(models.Model):
 class Pdf(models.Model):
     title = models.CharField(max_length=250, null=True, blank=True)
     pdf = models.FileField(upload_to='pdf')
+
+    def __str__(self):
+        return self.title
