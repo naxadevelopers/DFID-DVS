@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Sum, Count
 
-
+from django.db.models import Avg
 class Province(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
@@ -204,6 +204,10 @@ class Area(models.Model):
 
     def total_no_of_programmes(self):
         return self.programs.count()
+
+    def total_no_of_partners(self):
+        # self.programs.values('partner_program')
+        return self.programs.aggregate(total=Count('partner_program'))
 
 
 class GlossaryData(models.Model):

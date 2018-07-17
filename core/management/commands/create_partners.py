@@ -14,10 +14,10 @@ class Command(BaseCommand):
                         "Partner 4",
                         "Partner 5",
                         "Partner 6",
-                        "PArtner 7",
+                        "Partner 7",
 
                         ]
         for partner in partner_list:
             new_partner, created = Partner.objects.get_or_create(name=partner)
             if created:
-                self.stdout.write('Successfully created partnermes .. "%s"' % partner)
+                self.stdout.write('Successfully created partners .. "%s"' % partner)
