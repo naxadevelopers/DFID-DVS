@@ -154,7 +154,7 @@ class AreaSerializer(serializers.ModelSerializer):
     programs = ProgramSpendSerializer(many=True)
     total_program_budget = serializers.FloatField(source='total_program_budget.total')
     province_id = serializers.IntegerField(source='province.id')
-    total_no_of_partners = serializers.IntegerField(source='total_no_of_partners.total')
+    # total_no_of_partners = serializers.IntegerField(source='total_no_of_partners.total')
 
     class Meta:
         model = Area
