@@ -221,3 +221,15 @@ class Pdf(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Poverty(models.Model):
+    lgu = models.CharField(max_length=250)
+    hlcit_code = models.OneToOneField(Area, on_delete=models.CASCADE)
+    lu_type = models.CharField(max_length=250)
+    lgu_FGT_0 = models.FloatField()
+    lgu_FGT_1 = models.FloatField()
+    lgu_FGT_2 = models.FloatField()
+    female_lit_rate = models.FloatField()
+    male_lit_rate = models.FloatField()
+    total_lit_rate = models.FloatField() 

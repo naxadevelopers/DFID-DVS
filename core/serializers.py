@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import CharField, IntegerField, FloatField
 
 from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
-    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area, GlossaryData, Pdf
+    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area, GlossaryData, Pdf, Poverty
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -186,3 +186,11 @@ class PdfSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pdf
         exclude = ()
+
+
+class PovertySerializer(serializers.ModelSerializer):
+    hlcit_code = serializers.CharField(source='hlcit_code.hlcit_code')
+    class Meta:
+        model = Poverty
+        fields = ('id', 'lgu', 'hlcit_code', 'lu_type', 'lgu_FGT_0', 'lgu_FGT_1', 'lgu_FGT_2', 'female_lit_rate', 'male_lit_rate', 'total_lit_rate')
+

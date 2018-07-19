@@ -26,6 +26,7 @@ router.register(r'partners', viewset.PartnerViewSet, base_name='partner-list')
 router.register(r'municipalities', viewset.AreaViewSet, base_name='municipalities')
 router.register(r'glossary-data', viewset.GlossaryDataViewSet, base_name='glossary-data')
 router.register(r'explore', viewset.PdfViewSet, base_name='explore')
+router.register(r'poverty', viewset.PovertyViewSet, base_name='poverty')
 
 
 urlpatterns = [
