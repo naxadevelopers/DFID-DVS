@@ -192,5 +192,5 @@ class PovertySerializer(serializers.ModelSerializer):
     hlcit_code = serializers.CharField(source='hlcit_code.hlcit_code')
     class Meta:
         model = Poverty
-        fields = ('id', 'lgu', 'hlcit_code', 'lu_type', 'lgu_FGT_0', 'lgu_FGT_1', 'lgu_FGT_2', 'female_lit_rate', 'male_lit_rate', 'total_lit_rate')
+        fields = ('id', 'lgu', 'hlcit_code', 'lu_type', 'lgu_FGT_0', 'female_lit_rate', 'male_lit_rate', 'total_lit_rate')
 
