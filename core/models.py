@@ -13,6 +13,9 @@ class Province(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Province names"
+
 
 class District(models.Model):
     name = models.CharField(max_length=200)
@@ -20,6 +23,9 @@ class District(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "District names"
 
 
 class Sector(models.Model):
@@ -29,6 +35,9 @@ class Sector(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Sector names and codes"
 
 
 class Program(models.Model):
@@ -41,6 +50,9 @@ class Program(models.Model):
     def sectors(self):
         return self.program_data_program.values(sectorId=models.F('program__sector_data_program__sector_id'))
 
+    class Meta:
+        verbose_name_plural = 'Program names'
+
 
 class ProgramBudget(models.Model):
     program = models.ForeignKey(Program, related_name="program_budget", on_delete=models.CASCADE)
@@ -48,6 +60,9 @@ class ProgramBudget(models.Model):
 
     def __str__(self):
         return self.program.name
+
+    class Meta:
+        verbose_name_plural = 'Program budgets (overlal)'
 
 
 class ProvinceData(models.Model):
@@ -86,6 +101,9 @@ class ProvinceData(models.Model):
     def __str__(self):
         return self.province.name
 
+    class Meta:
+        verbose_name_plural = 'Key indicators, by province'
+
 
 class DistrictSpending(models.Model):
     district = models.ForeignKey(District, related_name="district_spending", on_delete=models.SET_NULL, null=True)
@@ -95,6 +113,9 @@ class DistrictSpending(models.Model):
     def __str__(self):
         return self.district.name
 
+    class Meta:
+        verbose_name_plural = 'Program annual spend, by district'
+
 
 class Indicator(models.Model):
     name = models.CharField(max_length=200)
@@ -103,6 +124,9 @@ class Indicator(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Indicator names"
 
 
 class IndicatorData(models.Model):
@@ -117,6 +141,9 @@ class IndicatorData(models.Model):
     def __str__(self):
         return self.indicator.name
 
+    class Meta:
+        verbose_name_plural = 'indicator data, by province'
+
 
 class ProvinceInfo(models.Model):
     name = models.ForeignKey(Province, related_name="province_info", on_delete=models.CASCADE)
@@ -127,6 +154,9 @@ class ProvinceInfo(models.Model):
 
     def __str__(self):
         return self.name.name
+
+    class Meta:
+        verbose_name_plural = 'Total budget, by province'
 
 
 class ProgramData(models.Model):
@@ -155,6 +185,9 @@ class ProgramData(models.Model):
     def __str__(self):
         return self.program.name
 
+    class Meta:
+        verbose_name_plural = 'Program allocations to provinces'
+
 
 class Partner(models.Model):
     name = models.CharField(max_length=200)
@@ -163,6 +196,9 @@ class Partner(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Partner names and metadata"
 
 
 class CountryData(models.Model):
@@ -179,6 +215,9 @@ class CountryData(models.Model):
     human_development_index = models.FloatField(null=True)
     gdp = models.IntegerField(null=True)
 
+    class Meta:
+        verbose_name_plural = 'Key indicators, national'
+
 
 class SectorData(models.Model):
     sector = models.ForeignKey(Sector, related_name="sector_data_sector", on_delete=models.CASCADE)
@@ -187,6 +226,9 @@ class SectorData(models.Model):
     def __str__(self):
         return self.sector.name
 
+    class Meta:
+        verbose_name_plural = 'Sectoral allocations of programs'
+
 
 class Layer(models.Model):
     name = models.CharField(max_length=250)
@@ -194,6 +236,9 @@ class Layer(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Geospatial data -- sectoral allocation"
 
 
 class LayerData(models.Model):
@@ -212,6 +257,9 @@ class LayerData(models.Model):
 
     def __str__(self):
         return self.layer_name.name
+
+    class Meta:
+        verbose_name_plural = 'Geospatial data -- metadata'
 
 
 class Dataset(models.Model):
@@ -246,12 +294,18 @@ class Area(models.Model):
     def __str__(self):
         return self.local_name
 
+    class Meta:
+        verbose_name_plural = 'Municipal names and program details'
+
 
 class GlossaryData(models.Model):
     title = models.ForeignKey(Indicator, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title.name
+
+    class Meta:
+        verbose_name_plural = 'Glossary Data'
 
 
 class Pdf(models.Model):
@@ -260,6 +314,9 @@ class Pdf(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = 'Infographics (metadata)'
 
 
 class Poverty(models.Model):
@@ -275,3 +332,6 @@ class Poverty(models.Model):
 
     def __str__(self):
         return self.lgu
+
+    class Meta:
+        verbose_name_plural = 'Poverty indicators, by municipality'
