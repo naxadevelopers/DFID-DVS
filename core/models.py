@@ -62,7 +62,7 @@ class ProgramBudget(models.Model):
         return self.program.name
 
     class Meta:
-        verbose_name_plural = 'Program budgets (overlal)'
+        verbose_name_plural = 'Program budgets (Overall)'
 
 
 class ProvinceData(models.Model):
@@ -335,3 +335,7 @@ class Poverty(models.Model):
 
     class Meta:
         verbose_name_plural = 'Poverty indicators, by municipality'
+
+
+class About(models.Model):
+    text = models.TextField()
