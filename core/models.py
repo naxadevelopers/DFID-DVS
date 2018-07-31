@@ -336,6 +336,3 @@ class Poverty(models.Model):
     class Meta:
         verbose_name_plural = 'Poverty indicators, by municipality'
 
-
-class About(models.Model):
-    text = models.TextField()
