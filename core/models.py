@@ -27,6 +27,9 @@ class Sector(models.Model):
     code = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Program(models.Model):
     name = models.CharField(max_length=200)
@@ -42,6 +45,9 @@ class Program(models.Model):
 class ProgramBudget(models.Model):
     program = models.ForeignKey(Program, related_name="program_budget", on_delete=models.CASCADE)
     budget = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.program.name
 
 
 class ProvinceData(models.Model):
@@ -77,11 +83,17 @@ class ProvinceData(models.Model):
     def description(self):
         return self.province.description
 
+    def __str__(self):
+        return self.province.name
+
 
 class DistrictSpending(models.Model):
     district = models.ForeignKey(District, related_name="district_spending", on_delete=models.SET_NULL, null=True)
     program = models.ForeignKey(Program, related_name="district_spending_program", on_delete=models.SET_NULL, null=True)
     annual_spend = models.FloatField()
+
+    def __str__(self):
+        return self.district.name
 
 
 class Indicator(models.Model):
@@ -102,6 +114,9 @@ class IndicatorData(models.Model):
     years = models.IntegerField()
     source = models.CharField(max_length=250)
 
+    def __str__(self):
+        return self.indicator.name
+
 
 class ProvinceInfo(models.Model):
     name = models.ForeignKey(Province, related_name="province_info", on_delete=models.CASCADE)
@@ -109,6 +124,9 @@ class ProvinceInfo(models.Model):
 
     def active_programmes(self):
         return self.name.program_data_province.values('program').count()
+
+    def __str__(self):
+        return self.name.name
 
 
 class ProgramData(models.Model):
@@ -134,11 +152,17 @@ class ProgramData(models.Model):
     def total_no_of_partners(self):
         return self.partner_program.count()
 
+    def __str__(self):
+        return self.program.name
+
 
 class Partner(models.Model):
     name = models.CharField(max_length=200)
     program = models.ManyToManyField(ProgramData, related_name="partner_program")
     description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class CountryData(models.Model):
@@ -159,6 +183,9 @@ class CountryData(models.Model):
 class SectorData(models.Model):
     sector = models.ForeignKey(Sector, related_name="sector_data_sector", on_delete=models.CASCADE)
     program = models.ForeignKey(Program, related_name="sector_data_program", on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.sector.name
 
 
 class Layer(models.Model):
@@ -183,6 +210,9 @@ class LayerData(models.Model):
         sectors = self.layer_name.sector.all()
         return [{'code': sector.code} for sector in sectors]
 
+    def __str__(self):
+        return self.layer_name.name
+
 
 class Dataset(models.Model):
     title = models.CharField(max_length=300)
@@ -190,6 +220,9 @@ class Dataset(models.Model):
     source = models.TextField()
     date = models.DateField()
     url = models.URLField()
+
+    def __str__(self):
+        return self.title
 
 
 class Area(models.Model):
@@ -210,9 +243,15 @@ class Area(models.Model):
 
         # return self.programs.values('partner_program__name').distinct().count()
 
+    def __str__(self):
+        return self.local_name
+
 
 class GlossaryData(models.Model):
     title = models.ForeignKey(Indicator, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title.name
 
 
 class Pdf(models.Model):
@@ -232,4 +271,7 @@ class Poverty(models.Model):
     lgu_FGT_2 = models.FloatField()
     female_lit_rate = models.FloatField()
     male_lit_rate = models.FloatField()
-    total_lit_rate = models.FloatField() 
+    total_lit_rate = models.FloatField()
+
+    def __str__(self):
+        return self.lgu
