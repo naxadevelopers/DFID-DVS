@@ -1,11 +1,12 @@
 from django.contrib import admin
 
 from core.models import Pdf, Province, District, Sector, Program, ProvinceData, ProgramBudget, DistrictSpending, Indicator, IndicatorData, ProvinceInfo,\
-	Partner, CountryData, Layer, LayerData, Area, GlossaryData, Poverty
+	Partner, CountryData, Layer, LayerData, Area, GlossaryData, Poverty, About
 
 admin.site.site_header = 'DFID'
 admin.site.index_title = 'DFID Forms'
 
+admin.site.register(About)
 admin.site.register(Pdf)
 admin.site.register(Province)
 admin.site.register(District)

@@ -2,6 +2,16 @@ from django.db import models
 from django.db.models import Sum, Count
 
 
+class About(models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return '{}....'.format(self.text[:20])
+
+    class Meta:
+        verbose_name_plural = "About"
+
+
 class Province(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
@@ -335,4 +345,3 @@ class Poverty(models.Model):
 
     class Meta:
         verbose_name_plural = 'Poverty indicators, by municipality'
-

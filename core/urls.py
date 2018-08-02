@@ -36,6 +36,7 @@ urlpatterns = [
     # path('geojson/municipalities/', views.municipalities_geojson),
     # path('geojson/ipssj/', views.ipssj_geojson),
     # path('geojson/province/<province_id>/', views.province_geojson),
+    path('about/', viewset.AboutViewSet.as_view({'get': 'list'})),
     path('layer-data-file/<int:pk>/', views.LayerDatafileView.as_view()),
     path('municipality-update/<int:pk>/', views.AreaUpdateView.as_view()),
     path('municipality-list/', views.AreaListView.as_view(), name="area_list"),
