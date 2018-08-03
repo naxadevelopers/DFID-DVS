@@ -24,7 +24,7 @@ class Province(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "Province names"
+        verbose_name_plural = "Province Names"
 
 
 class District(models.Model):
@@ -35,7 +35,7 @@ class District(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "District names"
+        verbose_name_plural = "District Names"
 
 
 class Sector(models.Model):
@@ -47,7 +47,7 @@ class Sector(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "Sector names and codes"
+        verbose_name_plural = "Sector Names And Codes"
 
 
 class Program(models.Model):
@@ -61,7 +61,7 @@ class Program(models.Model):
         return self.program_data_program.values(sectorId=models.F('program__sector_data_program__sector_id'))
 
     class Meta:
-        verbose_name_plural = 'Program names'
+        verbose_name_plural = 'Program Names'
 
 
 class ProgramBudget(models.Model):
@@ -72,7 +72,7 @@ class ProgramBudget(models.Model):
         return self.program.name
 
     class Meta:
-        verbose_name_plural = 'Program budgets (Overall)'
+        verbose_name_plural = 'Program Budgets (Overall)'
 
 
 class ProvinceData(models.Model):
@@ -112,7 +112,7 @@ class ProvinceData(models.Model):
         return self.province.name
 
     class Meta:
-        verbose_name_plural = 'Key indicators, by province'
+        verbose_name_plural = 'Key Indicators, By Province'
 
 
 class DistrictSpending(models.Model):
@@ -124,7 +124,7 @@ class DistrictSpending(models.Model):
         return self.district.name
 
     class Meta:
-        verbose_name_plural = 'Program annual spend, by district'
+        verbose_name_plural = 'Program Annual Spend, By District'
 
 
 class Indicator(models.Model):
@@ -136,7 +136,7 @@ class Indicator(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "Indicator names"
+        verbose_name_plural = "Indicator Names"
 
 
 class IndicatorData(models.Model):
@@ -152,7 +152,7 @@ class IndicatorData(models.Model):
         return self.indicator.name
 
     class Meta:
-        verbose_name_plural = 'indicator data, by province'
+        verbose_name_plural = 'Indicator Data, By Province'
 
 
 class ProvinceInfo(models.Model):
@@ -166,7 +166,7 @@ class ProvinceInfo(models.Model):
         return self.name.name
 
     class Meta:
-        verbose_name_plural = 'Total budget, by province'
+        verbose_name_plural = 'Total Budget, By Province'
 
 
 class ProgramData(models.Model):
@@ -196,7 +196,7 @@ class ProgramData(models.Model):
         return self.program.name
 
     class Meta:
-        verbose_name_plural = 'Program allocations to provinces'
+        verbose_name_plural = 'Program Allocations To Provinces'
 
 
 class Partner(models.Model):
@@ -208,7 +208,7 @@ class Partner(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "Partner names and metadata"
+        verbose_name_plural = "Partner Names And Metadata"
 
 
 class CountryData(models.Model):
@@ -226,7 +226,7 @@ class CountryData(models.Model):
     gdp = models.IntegerField(null=True)
 
     class Meta:
-        verbose_name_plural = 'Key indicators, national'
+        verbose_name_plural = 'Key Indicators, National'
 
 
 class SectorData(models.Model):
@@ -237,7 +237,7 @@ class SectorData(models.Model):
         return self.sector.name
 
     class Meta:
-        verbose_name_plural = 'Sectoral allocations of programs'
+        verbose_name_plural = 'Sectoral Allocations Of Programs'
 
 
 class Layer(models.Model):
@@ -248,7 +248,7 @@ class Layer(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "Geospatial data -- sectoral allocation"
+        verbose_name_plural = "Geospatial Data -- Sectoral Allocation"
 
 
 class LayerData(models.Model):
@@ -269,7 +269,7 @@ class LayerData(models.Model):
         return self.layer_name.name
 
     class Meta:
-        verbose_name_plural = 'Geospatial data -- metadata'
+        verbose_name_plural = 'Geospatial Data -- Metadata'
 
 
 class Dataset(models.Model):
@@ -305,7 +305,7 @@ class Area(models.Model):
         return self.local_name
 
     class Meta:
-        verbose_name_plural = 'Municipal names and program details'
+        verbose_name_plural = 'Municipal Names And Program Details'
 
 
 class GlossaryData(models.Model):
@@ -344,4 +344,4 @@ class Poverty(models.Model):
         return self.lgu
 
     class Meta:
-        verbose_name_plural = 'Poverty indicators, by municipality'
+        verbose_name_plural = 'Poverty Indicators, By Municipality'
