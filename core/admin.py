@@ -192,8 +192,13 @@ class CountryDataAdmin(admin.ModelAdmin):
 					'literacy_rate', 'population_under_poverty_line', 'per_capita_income', 'human_development_index', 'gdp']
 
 
+class PdfAdmin(admin.ModelAdmin):
+	search_fields = ('title',)
+	list_display = ['title', 'pdf']
+
+
 admin.site.register(About)
-admin.site.register(Pdf)
+admin.site.register(Pdf, PdfAdmin)
 admin.site.register(Province)
 admin.site.register(District, DistrictAdmin)
 admin.site.register(Sector, SectorAdmin)
