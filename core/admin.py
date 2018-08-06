@@ -1,5 +1,5 @@
 from django.contrib import admin
-from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
+from import_export.widgets import ForeignKeyWidget
 
 from core.models import Pdf, Province, District, Sector, Program, ProvinceData, ProgramBudget, DistrictSpending, Indicator, IndicatorData, ProvinceInfo,\
 	Partner, CountryData, Layer, LayerData, Area, GlossaryData, Poverty, About, ProgramData
@@ -115,51 +115,101 @@ class AreaResource(resources.ModelResource):
 
 
 class LayerDataAdmin(ImportExportModelAdmin):
+
+	search_fields = ('layer_name__name',)
+	list_display = ['layer_name', 'source', 'date', 'type', 'notes', 'file', 'layer_server_url', 'layer_path']
 	resource_class = LayerDataResource
 
 
 class ProvinceDataAdmin(ImportExportModelAdmin):
 	resource_class = ProvinceDataResource
+	list_display = ['province', 'total_population', 'area', 'population_density', 'poverty_rate', 'population_under_poverty_line',
+					'per_capita_income', 'hh_by_lowest_wealth_quantiles', 'human_development_index', 'minute_access_to', 'vulnerability_index', 'gdp']
 
 
 class DistrictSpendingAdmin(ImportExportModelAdmin):
 	resource_class = DistrictSpendingResource
+	list_display = ['district', 'program', 'annual_spend']
+	search_fields = ('district__name', 'program__name')
 
 
 class PovertyAdmin(ImportExportModelAdmin):
+	list_display = ['lgu', 'lu_type', 'lgu_FGT_0', 'lgu_FGT_1', 'lgu_FGT_2', 'female_lit_rate', 'male_lit_rate', 'total_lit_rate']
+	search_fields = ('lgu', 'lu_type')
 	resource_class = PovertyResource
 
 
 class AreaAdmin(ImportExportModelAdmin):
+	search_fields = ('hlcit_code', 'local_name', 'province__name', 'type')
+	list_display = ['hlcit_code', 'local_name', 'province', 'type']
 	resource_class = AreaResource
+	#
+	# def programs(self, obj):
+	# 	return ", ".join([pr.program.name for pr in obj.programs.all()])
 
 
 class IndicatorAdmin(ImportExportModelAdmin):
 	resource_class = IndicatorResource
+	search_fields = ('name',)
+	list_display = ['name', 'source', 'glossary']
 
 
 class IndicatorDataAdmin(ImportExportModelAdmin):
+	search_fields = ('indicator__name',)
+	list_display = ['province', 'indicator', 'value', 'unit', 'years', 'source']
 	resource_class = IndicatorDataResource
+
+
+class ProvinceInfoAdmin(admin.ModelAdmin):
+	list_display = ['name', 'total_budget']
+	search_fields = ('name__name',)
+
+
+class SectorAdmin(admin.ModelAdmin):
+	list_display = ['name', 'code']
+	search_fields = ('name', 'code')
+
+
+class ProgramBudgetAdmin(admin.ModelAdmin):
+	list_display = ['program', 'budget']
+
+
+class DistrictAdmin(admin.ModelAdmin):
+	search_fields = ('name', 'province__name')
+	list_display = ['name', 'province']
+
+
+class LayerAdmin(admin.ModelAdmin):
+	search_fields = ('name',)
+	list_display = ['name', 'sectors']
+
+	def sectors(self, obj):
+		return ", ".join([sector.name for sector in obj.sector.all()])
+
+
+class CountryDataAdmin(admin.ModelAdmin):
+	list_display = ['provinces', 'paalikas', 'municipalities', 'total_population', 'area', 'population_density', 'poverty_rate',
+					'literacy_rate', 'population_under_poverty_line', 'per_capita_income', 'human_development_index', 'gdp']
 
 
 admin.site.register(About)
 admin.site.register(Pdf)
 admin.site.register(Province)
-admin.site.register(District)
-admin.site.register(Sector)
+admin.site.register(District, DistrictAdmin)
+admin.site.register(Sector, SectorAdmin)
 admin.site.register(Program)
 admin.site.register(ProvinceData, ProvinceDataAdmin)
-admin.site.register(ProgramBudget)
+admin.site.register(ProgramBudget, ProgramBudgetAdmin)
 admin.site.register(DistrictSpending, DistrictSpendingAdmin)
 admin.site.register(Indicator, IndicatorAdmin)
 admin.site.register(Partner)
-admin.site.register(CountryData)
-admin.site.register(Layer)
+admin.site.register(CountryData, CountryDataAdmin)
+admin.site.register(Layer, LayerAdmin)
 admin.site.register(LayerData, LayerDataAdmin)
 admin.site.register(Area, AreaAdmin)
 admin.site.register(GlossaryData)
 admin.site.register(IndicatorData, IndicatorDataAdmin)
-admin.site.register(ProvinceInfo)
+admin.site.register(ProvinceInfo, ProvinceInfoAdmin)
 admin.site.register(Poverty, PovertyAdmin)
 
 
