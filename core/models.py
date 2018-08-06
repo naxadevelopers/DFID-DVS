@@ -13,8 +13,8 @@ class About(models.Model):
 
 
 class Province(models.Model):
-    name = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=200, verbose_name="NAME")
+    description = models.TextField(null=True, blank=True, verbose_name="Description")
 
     @property
     def annual_spend(self):
@@ -258,8 +258,8 @@ class LayerData(models.Model):
     type = models.CharField(max_length=250)
     notes = models.TextField()
     file = models.FileField(upload_to='layer/', null=True, blank=True)
-    layer_server_url = models.CharField(max_length=300, null=True)
-    layer_path = models.CharField(max_length=300, null=True)
+    layer_server_url = models.CharField(max_length=300, null=True, blank=True)
+    layer_path = models.CharField(max_length=300, null=True, blank=True)
 
     def sectors(self):
         sectors = self.layer_name.sector.all()
