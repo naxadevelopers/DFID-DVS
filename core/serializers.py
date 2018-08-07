@@ -158,7 +158,7 @@ class AreaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Area
-        fields = ('id', 'hlcit_code', 'province', 'type', 'local_name', 'programs', 'total_program_budget', 'total_no_of_programmes', 'total_no_of_partners')
+        fields = ('id', 'hlcit_code', 'province_id', 'type', 'local_name', 'programs', 'total_program_budget', 'total_no_of_programmes', 'total_no_of_partners')
 
     def to_representation(self, obj):
         data = super().to_representation(obj)
