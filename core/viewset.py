@@ -4,18 +4,18 @@ from rest_framework import serializers, viewsets
 from rest_framework.filters import SearchFilter
 
 from .models import ProvinceData, Province, District, Program, Partner, DistrictSpending, Indicator, IndicatorData, \
-    Sector, ProvinceInfo, ProgramData, CountryData, LayerData, Layer, Dataset, Area, GlossaryData, Pdf, Poverty, About
+    Sector, ProvinceInfo, ProgramData, CountryData, LayerData, Layer, Dataset, Area, GlossaryData, Pdf, Poverty, About, ProgramSpendAllocation
 from .serializers import ProvinceDataSerializer, ProvinceSerializer, DistrictSerializer, ProgramSerializer, \
     PartnerSerializer, DistrictSpendingSerializer, IndicatorSerializer, IndicatorDataSerializer, SectorSerializer, \
     ProvinceInfoSerializer, ProgramDataSerializer, CountryDataSerializer, LayerDataSerializer, DatasetSerializer, AreaSerializer, \
-    GlossaryDataSerializer, PdfSerializer, PovertySerializer, AboutSerializer
+    GlossaryDataSerializer, PdfSerializer, PovertySerializer, AboutSerializer, ProgramSpendAllocationSerializer
 
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'is_staff')
+        fields = ('username', 'email', 'is_staff')
 
 
 # ViewSets define the view behavior.
@@ -243,3 +243,9 @@ class AboutViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = AboutSerializer
     queryset = About.objects.all()
+
+
+class ProgramSpendAllocationViewSet(viewsets.ReadOnlyModelViewSet):
+
+    serializer_class = ProgramSpendAllocationSerializer
+    queryset = ProgramSpendAllocation.objects.select_related()

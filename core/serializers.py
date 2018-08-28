@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import CharField, IntegerField, FloatField
 
 from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
-    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area, GlossaryData, Pdf, Poverty, About
+    IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area, GlossaryData, Pdf, Poverty, About, ProgramSpendAllocation
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -200,3 +200,11 @@ class AboutSerializer(serializers.ModelSerializer):
     class Meta:
         model = About
         exclude = ()
+
+
+class ProgramSpendAllocationSerializer(serializers.ModelSerializer):
+    program_name = serializers.CharField(source='program.name')
+
+    class Meta:
+        model = ProgramSpendAllocation
+        fields = ('id', 'program_name', 'district', 'hlcit_code', 'local_unit', 'partnership', 'spend_allocation_npr', 'spend_allocation_gbp')

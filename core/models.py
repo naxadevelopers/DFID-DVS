@@ -345,3 +345,14 @@ class Poverty(models.Model):
 
     class Meta:
         verbose_name_plural = 'Poverty Indicators, By Municipality'
+
+
+class ProgramSpendAllocation(models.Model):
+    program = models.ForeignKey(Program, related_name="program_spend_allocation", on_delete=models.CASCADE)
+    district = models.CharField(max_length=300)
+    hlcit_code = models.CharField(max_length=300, null=True, blank=True)
+    local_unit = models.CharField(max_length=300)
+    partnership = models.CharField(max_length=300)
+    spend_allocation_npr = models.FloatField()
+    spend_allocation_gbp = models.FloatField()
+
