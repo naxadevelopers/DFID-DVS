@@ -100,7 +100,7 @@ class ProgramDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProgramData
-        fields = ('id', 'program', 'program_id', 'description', 'sectors', 'program_budget')
+        fields = ('id', 'program', 'program_id', 'description', 'sectors', 'program_budget', 'program_spend_allocation')
 
 
 class CountryDataSerializer(serializers.ModelSerializer):

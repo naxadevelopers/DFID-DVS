@@ -192,6 +192,9 @@ class ProgramData(models.Model):
     def total_no_of_partners(self):
         return self.partner_program.count()
 
+    def program_spend_allocation(self):
+        return self.program.program_spend_allocation.values('program', 'district', 'hlcit_code', 'partnership', 'spend_allocation_npr', 'spend_allocation_gbp')
+
     def __str__(self):
         return self.program.name
 
