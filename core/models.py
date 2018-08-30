@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum, Count
+from django.db.models import Sum
 
 
 class About(models.Model):
@@ -96,9 +96,6 @@ class ProvinceData(models.Model):
         return self.province.program_data_province.values(programID=models.F('program'),
                                                           programName=models.F('program__name'))
 
-        # programmes = self.province.program_data_province.all()
-        # return [[a.program,a.program__name] for a in programmes]
-
     def total_budget(self):
         return self.province.province_info.values_list('total_budget', flat=True)[0]
 
@@ -186,12 +183,6 @@ class ProgramData(models.Model):
         return self.program.sector_data_program.values(sectorId=models.F('sector_id'),
                                                        sectorName=models.F('sector__name'))
 
-    def partners(self):
-        return self.partner_program.values('name')
-
-    def total_no_of_partners(self):
-        return self.partner_program.count()
-
     def program_spend_allocation(self):
         return self.program.program_spend_allocation.values('district', 'hlcit_code', 'partnership', 'spend_allocation_npr', 'spend_allocation_gbp')
 
@@ -204,7 +195,7 @@ class ProgramData(models.Model):
 
 class Partner(models.Model):
     name = models.CharField(max_length=200)
-    program = models.ManyToManyField(ProgramData, related_name="partner_program")
+    program = models.ManyToManyField(Program, related_name="partner_program")
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -291,24 +282,46 @@ class Area(models.Model):
     province = models.ForeignKey(Province, related_name='area_province', on_delete=models.CASCADE, null=True)
     type = models.CharField(max_length=300)
     local_name = models.CharField(max_length=300)
-    programs = models.ManyToManyField(ProgramData, blank=True)
 
     def total_program_budget(self):
-        return self.programs.aggregate(total=Sum('program__program_budget__budget'))
+        return self.programs.aggregate(total=Sum('spend_allocation_gbp'))
 
     def total_no_of_programmes(self):
         return self.programs.count()
 
     def total_no_of_partners(self):
-        return self.programs.values('partner_program__name').distinct().exclude(partner_program__name=None).count()
-
-        # return self.programs.values('partner_program__name').distinct().count()
+        return self.programs.values('program__partner_program__name').distinct().exclude(program__partner_program__name=None).count()
 
     def __str__(self):
         return self.local_name
 
     class Meta:
         verbose_name_plural = 'Municipal Names And Program Details'
+
+
+# Municipality Program Budget
+
+
+class ProgramSpendAllocation(models.Model):
+    program = models.ForeignKey(Program, related_name="program_spend_allocation", on_delete=models.CASCADE)
+    district = models.CharField(max_length=300)
+    hlcit_code = models.ForeignKey(Area, on_delete=models.CASCADE, related_name="programs", null=True)
+    local_unit = models.CharField(max_length=300)
+    partnership = models.CharField(max_length=300)
+    spend_allocation_npr = models.FloatField()
+    spend_allocation_gbp = models.FloatField()
+
+    def __str__(self):
+        return self.program.name
+
+    def program_budget(self):
+        return self.spend_allocation_gbp
+
+    def partners(self):
+        return self.program.partner_program.values('name', 'description')
+
+    def total_no_of_partners(self):
+        return self.program.partner_program.count()
 
 
 class GlossaryData(models.Model):
@@ -348,14 +361,4 @@ class Poverty(models.Model):
 
     class Meta:
         verbose_name_plural = 'Poverty Indicators, By Municipality'
-
-
-class ProgramSpendAllocation(models.Model):
-    program = models.ForeignKey(Program, related_name="program_spend_allocation", on_delete=models.CASCADE)
-    district = models.CharField(max_length=300)
-    hlcit_code = models.CharField(max_length=300, null=True, blank=True)
-    local_unit = models.CharField(max_length=300)
-    partnership = models.CharField(max_length=300)
-    spend_allocation_npr = models.FloatField()
-    spend_allocation_gbp = models.FloatField()
 

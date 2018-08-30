@@ -243,9 +243,3 @@ class AboutViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = AboutSerializer
     queryset = About.objects.all()
-
-
-class ProgramSpendAllocationViewSet(viewsets.ReadOnlyModelViewSet):
-
-    serializer_class = ProgramSpendAllocationSerializer
-    queryset = ProgramSpendAllocation.objects.select_related()

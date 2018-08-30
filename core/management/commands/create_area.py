@@ -9,7 +9,7 @@ from core.models import Area
 
 
 class Command(BaseCommand):
-    help = 'load area data from munis.csv file'
+    help = 'load area data from Municipalities.csv file'
 
     def add_arguments(self, parser):
         parser.add_argument("-f", type=argparse.FileType(), required=True)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.serializers import CharField, IntegerField, FloatField
+from rest_framework.serializers import CharField, IntegerField
 
 from .models import ProvinceData, Province, District, Sector, Partner, Program, DistrictSpending, Indicator, \
     IndicatorData, ProvinceInfo, ProgramData, CountryData, LayerData, Dataset, Area, GlossaryData, Pdf, Poverty, About, ProgramSpendAllocation
@@ -42,7 +42,6 @@ class ProgramSerializer(serializers.ModelSerializer):
 
 class ProvinceDataSerializer(serializers.ModelSerializer):
     province = CharField(source='province.name', read_only=True)
-    # total_budget = FloatField(source='budget')
 
     class Meta:
         model = ProvinceData
@@ -140,25 +139,33 @@ class DatasetSerializer(serializers.ModelSerializer):
         exclude = ()
 
 
-class ProgramSpendSerializer(serializers.ModelSerializer):
-    program = CharField(source='program.name')
-    program_id = IntegerField(source='program.id')
-    partners = PartnerSerializer(many=True)
+# class ProgramSpendSerializer(serializers.ModelSerializer):
+#     program = CharField(source='program.name')
+#     program_id = IntegerField(source='program.id')
+#     partners = PartnerSerializer(many=True)
+#
+#     class Meta:
+#         model = ProgramData
+#         fields = ('program', 'program_id', 'program_budget', 'partners', 'total_no_of_partners')
+
+
+class ProgramSpendAllocationSerializer(serializers.ModelSerializer):
+    program = serializers.CharField(source='program.name')
 
     class Meta:
-        model = ProgramData
+        model = ProgramSpendAllocation
         fields = ('program', 'program_id', 'program_budget', 'partners', 'total_no_of_partners')
 
 
 class AreaSerializer(serializers.ModelSerializer):
-    programs = ProgramSpendSerializer(many=True)
+    programs = ProgramSpendAllocationSerializer(many=True)
     total_program_budget = serializers.FloatField(source='total_program_budget.total')
     province_id = serializers.IntegerField(source='province.id')
-    # total_no_of_partners = serializers.IntegerField(source='total_no_of_partners.total')
 
     class Meta:
         model = Area
-        fields = ('id', 'hlcit_code', 'province_id', 'type', 'local_name', 'programs', 'total_program_budget', 'total_no_of_programmes', 'total_no_of_partners')
+        fields = ('id', 'hlcit_code', 'province_id', 'type', 'local_name', 'programs', 'total_program_budget',
+                  'total_no_of_programmes', 'total_no_of_partners')
 
     def to_representation(self, obj):
         data = super().to_representation(obj)
@@ -190,6 +197,7 @@ class PdfSerializer(serializers.ModelSerializer):
 
 class PovertySerializer(serializers.ModelSerializer):
     hlcit_code = serializers.CharField(source='hlcit_code.hlcit_code')
+
     class Meta:
         model = Poverty
         fields = ('id', 'lgu', 'hlcit_code', 'lu_type', 'lgu_FGT_0', 'female_lit_rate', 'male_lit_rate', 'total_lit_rate')
@@ -202,9 +210,3 @@ class AboutSerializer(serializers.ModelSerializer):
         exclude = ()
 
 
-class ProgramSpendAllocationSerializer(serializers.ModelSerializer):
-    program_name = serializers.CharField(source='program.name')
-
-    class Meta:
-        model = ProgramSpendAllocation
-        fields = ('id', 'program_name', 'district', 'hlcit_code', 'local_unit', 'partnership', 'spend_allocation_npr', 'spend_allocation_gbp')

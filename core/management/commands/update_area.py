@@ -9,7 +9,7 @@ from core.models import Area, Province
 
 
 class Command(BaseCommand):
-    help = 'update area data from munis.csv file for adding province in each municipality'
+    help = 'update area data from Municipalities.csv file for adding province in each municipality'
 
     def add_arguments(self, parser):
         parser.add_argument("-f", type=argparse.FileType(), required=True)

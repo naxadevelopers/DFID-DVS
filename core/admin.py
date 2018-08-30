@@ -2,7 +2,7 @@ from django.contrib import admin
 from import_export.widgets import ForeignKeyWidget
 
 from core.models import Pdf, Province, District, Sector, Program, ProvinceData, ProgramBudget, DistrictSpending, Indicator, IndicatorData, ProvinceInfo,\
-	Partner, CountryData, Layer, LayerData, Area, GlossaryData, Poverty, About, ProgramData
+	Partner, CountryData, Layer, LayerData, Area, GlossaryData, Poverty, About
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
@@ -105,13 +105,14 @@ class AreaResource(resources.ModelResource):
 	class Meta:
 		model = Area
 		import_id_fields = ('hlcit_code',)
-		fields = ('hlcit_code', 'province', 'type', 'local_name', 'programs')
+		fields = ('hlcit_code', 'province', 'type', 'local_name')
 
-	def dehydrate_programs(self, accession):
-		programs = [pro.program.name for pro in accession.programs.all()]
-		programs = ','.join(programs)
-
-		return '%s' % programs
+	# if field in manytomany, eg. programs
+	# def dehydrate_programs(self, accession):
+	# 	programs = [pro.program.name for pro in accession.programs.all()]
+	# 	programs = ','.join(programs)
+	#
+	# 	return '%s' % programs
 
 
 class LayerDataAdmin(ImportExportModelAdmin):
@@ -143,9 +144,6 @@ class AreaAdmin(ImportExportModelAdmin):
 	search_fields = ('hlcit_code', 'local_name', 'province__name', 'type')
 	list_display = ['hlcit_code', 'local_name', 'province', 'type']
 	resource_class = AreaResource
-	#
-	# def programs(self, obj):
-	# 	return ", ".join([pr.program.name for pr in obj.programs.all()])
 
 
 class IndicatorAdmin(ImportExportModelAdmin):
