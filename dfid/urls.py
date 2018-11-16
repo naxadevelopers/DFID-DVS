@@ -23,7 +23,7 @@ from rest_framework_swagger.views import get_swagger_view
 schema_view = get_swagger_view(title='DFID API DOCS')
 
 urlpatterns = [
-    path('', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('core/', include('core.urls', namespace="core")),
     path('api-auth/', include('rest_framework.urls')),
     path('core/api/docs/', schema_view)
